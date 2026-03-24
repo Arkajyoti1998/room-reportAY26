@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Room Allocation Report</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg:       #0f1117;
+  --bg2:      #161820;
+  --bg3:      #1d1f2a;
+  --bg4:      #242636;
+  --border:   rgba(255,255,255,0.07);
+  --border2:  rgba(255,255,255,0.12);
+  --text:     #e8eaf0;
+  --text2:    #9499b0;
+  --text3:    #5a5f78;
+  --accent:   #6c63ff;
+  --accent2:  #8b83ff;
+  --accent-bg: rgba(108,99,255,0.12);
+  --green:    #22d3a0;
+  --green-bg: rgba(34,211,160,0.1);
+  --amber:    #f59e0b;
+  --amber-bg: rgba(245,158,11,0.1);
+  --red:      #f43f5e;
+  --red-bg:   rgba(244,63,94,0.1);
+  --blue:     #38bdf8;
+  --blue-bg:  rgba(56,189,248,0.1);
+  --purple:   #a78bfa;
+  --purple-bg:rgba(167,139,250,0.1);
+  --teal:     #2dd4bf;
+  --teal-bg:  rgba(45,212,191,0.1);
+  --r:        10px;
+  --r-sm:     6px;
+  --r-lg:     14px;
+  --font:     'Inter', system-ui, sans-serif;
+  --mono:     'JetBrains Mono', monospace;
+  --shadow:   0 4px 24px rgba(0,0,0,0.4);
+  --shadow-sm:0 2px 8px rgba(0,0,0,0.3);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.header {
+  background: linear-gradient(135deg, #1a1c2e 0%, #141628 50%, #0f1117 100%);
+  border-bottom: 1px solid var(--border2);
+  padding: 0 28px;
+  position: sticky; top: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  height: 64px;
+  backdrop-filter: blur(12px);
+}
+.header-left { display: flex; align-items: center; gap: 14px; }
+.logo {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent) 0%, #9c35ff 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 700; color: #fff; flex-shrink: 0;
+  box-shadow: 0 0 16px rgba(108,99,255,0.4);
+}
+.header-title { font-size: 15px; font-weight: 600; letter-spacing: -0.2px; }
+.header-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
+.header-right { display: flex; align-items: center; gap: 10px; }
+.refresh-btn {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--accent-bg); border: 1px solid rgba(108,99,255,0.3);
+  color: var(--accent2); padding: 6px 14px; border-radius: 20px;
+  font-size: 12px; font-weight: 500; cursor: pointer;
+  transition: all 0.2s; font-family: var(--font);
+}
+.refresh-btn:hover { background: rgba(108,99,255,0.2); border-color: var(--accent); }
+.refresh-btn.spinning svg { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.last-updated { font-size: 11px; color: var(--text3); white-space: nowrap; }
+
+/* ── STATS BAR ── */
+.stats-bar {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 28px;
+  display: flex; gap: 8px; flex-wrap: wrap;
+  overflow-x: auto;
+}
+.stat-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 10px 16px;
+  min-width: 120px;
+  flex-shrink: 0;
+  transition: border-color 0.2s;
+}
+.stat-card:hover { border-color: var(--border2); }
+.stat-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
+.stat-value { font-size: 20px; font-weight: 700; margin-top: 2px; line-height: 1; }
+.stat-sub { font-size: 10px; color: var(--text3); margin-top: 3px; }
+.stat-card.accent .stat-value { color: var(--accent2); }
+.stat-card.green .stat-value  { color: var(--green); }
+.stat-card.amber .stat-value  { color: var(--amber); }
+.stat-card.red .stat-value    { color: var(--red); }
+.stat-card.blue .stat-value   { color: var(--blue); }
+
+/* ── FILTERS ── */
+.filters-bar {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 28px;
+  display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+}
+.filter-group { display: flex; align-items: center; gap: 6px; }
+.filter-label { font-size: 11px; color: var(--text3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+.search-wrap { position: relative; flex: 1; min-width: 200px; max-width: 320px; }
+.search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text3); width: 14px; height: 14px; }
+input[type=text], select {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-sm);
+  padding: 7px 10px 7px 32px;
+  font-size: 12px; color: var(--text);
+  font-family: var(--font);
+  outline: none; width: 100%;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+input[type=text] { padding-left: 32px; }
+select { padding-left: 10px; padding-right: 28px; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235a5f78' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; min-width: 140px; }
+input[type=text]:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(108,99,255,0.15); }
+.fill-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip {
+  padding: 5px 12px; border-radius: 20px;
+  font-size: 11px; font-weight: 500; cursor: pointer;
+  border: 1px solid var(--border2); background: var(--bg3);
+  color: var(--text2); transition: all 0.15s;
+  white-space: nowrap;
+}
+.chip:hover { border-color: var(--border2); background: var(--bg4); }
+.chip.active-all   { background: var(--accent-bg); border-color: var(--accent); color: var(--accent2); }
+.chip.active-over  { background: var(--red-bg);    border-color: var(--red);    color: var(--red); }
+.chip.active-high  { background: var(--green-bg);  border-color: var(--green);  color: var(--green); }
+.chip.active-med   { background: var(--amber-bg);  border-color: var(--amber);  color: var(--amber); }
+.chip.active-low   { background: var(--blue-bg);   border-color: var(--blue);   color: var(--blue); }
+.chip.active-empty { background: var(--bg4);       border-color: var(--text3);  color: var(--text2); }
+
+/* ── MAIN ── */
+main { padding: 20px 28px 48px; }
+.center-block { margin-bottom: 16px; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border); background: var(--bg2); transition: border-color 0.2s; }
+.center-block:hover { border-color: var(--border2); }
+
+/* ── CENTER HEADER ── */
+.center-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 20px;
+  cursor: pointer; user-select: none;
+  background: linear-gradient(90deg, var(--bg3) 0%, var(--bg2) 100%);
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s;
+  position: relative;
+}
+.center-header::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  background: linear-gradient(180deg, var(--accent) 0%, #9c35ff 100%);
+  border-radius: 0 2px 2px 0;
+}
+.center-header.is-open { border-bottom-color: var(--border); }
+.center-header:hover { background: linear-gradient(90deg, var(--bg4) 0%, var(--bg3) 100%); }
+.center-name { font-size: 14px; font-weight: 600; flex: 1; }
+.center-chips { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.mini-pill {
+  font-size: 10px; font-weight: 500; padding: 3px 9px;
+  border-radius: 10px; white-space: nowrap;
+}
+.mp-rooms { background: var(--bg4); color: var(--text2); }
+.mp-fill  { }
+.fill-num { font-size: 14px; font-weight: 700; min-width: 48px; text-align: right; }
+.chevron-icon { color: var(--text3); transition: transform 0.25s; flex-shrink: 0; }
+.chevron-icon.open { transform: rotate(180deg); }
+
+/* ── BUILDING HEADER ── */
+.building-block { border-top: 1px solid var(--border); }
+.building-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px 10px 32px;
+  cursor: pointer; user-select: none;
+  background: var(--bg2);
+  transition: background 0.15s;
+}
+.building-header:hover { background: var(--bg3); }
+.building-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text3); flex-shrink: 0; }
+.building-name { font-size: 12px; font-weight: 500; color: var(--text2); flex: 1; }
+.building-meta { display: flex; gap: 12px; align-items: center; font-size: 11px; color: var(--text3); }
+.bchev { color: var(--text3); transition: transform 0.2s; }
+.bchev.open { transform: rotate(180deg); }
+
+/* ── TABLE ── */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  background: var(--bg3);
+  padding: 8px 14px;
+  text-align: left;
+  font-size: 10px; font-weight: 600; color: var(--text3);
+  text-transform: uppercase; letter-spacing: 0.7px;
+  border-bottom: 1px solid var(--border2);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s;
+}
+thead th:hover { color: var(--text2); }
+thead th.sort-asc::after  { content: ' ↑'; color: var(--accent2); }
+thead th.sort-desc::after { content: ' ↓'; color: var(--accent2); }
+thead th.num, td.num { text-align: right; }
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: rgba(255,255,255,0.02); }
+td { padding: 10px 14px; vertical-align: middle; white-space: nowrap; }
+td.room-name { font-family: var(--mono); font-size: 12px; font-weight: 500; color: var(--text); }
+td.batch-code { font-family: var(--mono); font-size: 11px; color: var(--text3); }
+td.muted { color: var(--text2); font-size: 12px; }
+
+/* ── BADGES ── */
+.badge {
+  display: inline-flex; align-items: center;
+  padding: 3px 9px; border-radius: 20px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+.b-morning   { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); }
+.b-evening   { background: rgba(167,139,250,0.12); color: #a78bfa; border: 1px solid rgba(167,139,250,0.2); }
+.b-afternoon { background: rgba(45,212,191,0.12);  color: #2dd4bf; border: 1px solid rgba(45,212,191,0.2); }
+.b-any       { background: var(--bg4); color: var(--text2); border: 1px solid var(--border2); }
+.b-weekday   { background: rgba(56,189,248,0.10); color: #38bdf8; border: 1px solid rgba(56,189,248,0.2); }
+.b-weekend   { background: rgba(34,211,160,0.10); color: #22d3a0; border: 1px solid rgba(34,211,160,0.2); }
+.b-icse      { background: rgba(251,146,60,0.10); color: #fb923c; border: 1px solid rgba(251,146,60,0.2); }
+.b-rankers   { background: rgba(244,63,94,0.10);  color: #fb7185; border: 1px solid rgba(244,63,94,0.2); }
+.b-tts       { background: rgba(232,121,249,0.10);color: #e879f9; border: 1px solid rgba(232,121,249,0.2); }
+.b-other     { background: var(--bg4); color: var(--text2); border: 1px solid var(--border2); }
+
+/* ── FILL BAR ── */
+.fill-wrap { display: flex; align-items: center; gap: 8px; min-width: 140px; }
+.bar-bg { flex: 1; height: 5px; background: var(--bg4); border-radius: 3px; overflow: visible; position: relative; min-width: 70px; }
+.bar-fg { height: 100%; border-radius: 3px; transition: width 0.4s ease; position: relative; }
+.bar-fg::after { content:''; position:absolute; right:0; top:-2px; width:9px; height:9px; border-radius:50%; background:inherit; box-shadow: 0 0 6px currentColor; }
+.fp { font-size: 12px; font-weight: 600; min-width: 42px; text-align: right; }
+.over-tag {
+  font-size: 9px; font-weight: 700; padding: 2px 5px;
+  background: var(--red-bg); color: var(--red);
+  border: 1px solid rgba(244,63,94,0.3);
+  border-radius: 4px; letter-spacing: 0.3px;
+}
+.c-green  { background: var(--green);  color: var(--green); }
+.c-amber  { background: var(--amber);  color: var(--amber); }
+.c-red    { background: var(--red);    color: var(--red); }
+.c-blue   { background: var(--blue);   color: var(--blue); }
+.c-gray   { background: var(--text3);  color: var(--text3); }
+
+/* ── LOADING / ERROR ── */
+.loader {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 80px 20px; gap: 16px;
+}
+.spinner {
+  width: 40px; height: 40px;
+  border: 3px solid var(--border2);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+.loader-text { font-size: 13px; color: var(--text3); }
+.error-box {
+  margin: 32px; padding: 24px;
+  background: var(--red-bg); border: 1px solid rgba(244,63,94,0.2);
+  border-radius: var(--r); color: var(--red);
+  font-size: 13px; line-height: 1.7;
+}
+.error-box strong { display: block; font-size: 15px; margin-bottom: 8px; }
+.collapsed { display: none; }
+.empty-state { padding: 40px; text-align: center; color: var(--text3); font-size: 13px; }
+
+/* ── TOOLTIP RANK ── */
+.rank-badge {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  width: 20px; height: 20px; border-radius: 50%;
+  text-align: center; line-height: 20px;
+  background: var(--bg4); color: var(--text3);
+  flex-shrink: 0;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border2); }
+
+@media (max-width: 640px) {
+  .header, main, .stats-bar, .filters-bar { padding-left: 14px; padding-right: 14px; }
+  .center-header, .building-header { padding-left: 14px; padding-right: 14px; }
+  .building-header { padding-left: 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-left">
+    <div class="logo">R</div>
+    <div>
+      <div class="header-title">Room Allocation Report</div>
+      <div class="header-sub" id="headerSub">Loading data…</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="last-updated" id="lastUpdated"></span>
+    <button class="refresh-btn" id="refreshBtn" onclick="loadData()">
+      <svg id="refreshIcon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+      Refresh
+    </button>
+  </div>
+</header>
+
+<!-- STATS BAR -->
+<div class="stats-bar" id="statsBar">
+  <div class="stat-card accent"><div class="stat-label">Total Rooms</div><div class="stat-value" id="s-rooms">—</div></div>
+  <div class="stat-card blue"><div class="stat-label">Centers</div><div class="stat-value" id="s-centers">—</div></div>
+  <div class="stat-card"><div class="stat-label">Capacity</div><div class="stat-value" id="s-cap">—</div></div>
+  <div class="stat-card green"><div class="stat-label">Enrolled</div><div class="stat-value" id="s-stu">—</div></div>
+  <div class="stat-card amber"><div class="stat-label">Overall Fill</div><div class="stat-value" id="s-fill">—</div></div>
+  <div class="stat-card red"><div class="stat-label">Overfilled</div><div class="stat-value" id="s-over">—</div><div class="stat-sub">rooms &gt;100%</div></div>
+  <div class="stat-card"><div class="stat-label">Empty</div><div class="stat-value" id="s-empty">—</div><div class="stat-sub">0 students</div></div>
+</div>
+
+<!-- FILTERS -->
+<div class="filters-bar">
+  <div class="filter-group">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="Search room, batch, building…" oninput="filterAll()">
+    </div>
+  </div>
+  <div class="filter-group">
+    <span class="filter-label">Center</span>
+    <select id="centerFilter" onchange="filterAll()">
+      <option value="">All Centers</option>
+    </select>
+  </div>
+  <div class="filter-group">
+    <span class="filter-label">Type</span>
+    <select id="typeFilter" onchange="filterAll()">
+      <option value="">All Types</option>
+      <option>Weekday</option><option>Weekend</option>
+      <option>ICSE</option><option>Rankers</option><option>TTS</option>
+    </select>
+  </div>
+  <div class="filter-group">
+    <span class="filter-label">Fill</span>
+    <div class="fill-chips">
+      <span class="chip active-all" data-fill="" onclick="setFill(this,'')">All</span>
+      <span class="chip" data-fill="over"  onclick="setFill(this,'over')">Overfilled</span>
+      <span class="chip" data-fill="high"  onclick="setFill(this,'high')">≥80%</span>
+      <span class="chip" data-fill="med"   onclick="setFill(this,'med')">40–79%</span>
+      <span class="chip" data-fill="low"   onclick="setFill(this,'low')">&lt;40%</span>
+      <span class="chip" data-fill="empty" onclick="setFill(this,'empty')">Empty</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main id="mainContent">
+  <div class="loader"><div class="spinner"></div><div class="loader-text">Fetching live data…</div></div>
+</main>
+
+<script>
+const API_URL = 'https://script.google.com/macros/s/AKfycbyDGIparmyGmE-UhgZr5A7s1JldjwIE47NCAcEQX6oHAAB2k4yW6epPhRw2F_EA74hl/exec';
+
+let allData = [];
+let activeFill = '';
+let sortState = { key: 'pct', dir: 'desc' };
+let expandedCenters = {};
+let expandedBuildings = {};
+
+// ── DATA LOADING ──────────────────────────────────────────────
+async function loadData() {
+  const btn = document.getElementById('refreshBtn');
+  btn.classList.add('spinning');
+  document.getElementById('mainContent').innerHTML = '<div class="loader"><div class="spinner"></div><div class="loader-text">Fetching live data from Google Sheets…</div></div>';
+
+  try {
+    const res = await fetch(API_URL + '?t=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    processData(json);
+    const now = new Date();
+    document.getElementById('lastUpdated').textContent = 'Updated ' + now.toLocaleTimeString();
+    document.getElementById('headerSub').textContent = 'All Centers · Live from Google Sheets';
+  } catch(e) {
+    document.getElementById('mainContent').innerHTML = `
+      <div class="error-box">
+        <strong>⚠ Could not load live data</strong>
+        Failed to fetch from Google Apps Script: ${e.message}<br><br>
+        Make sure:<br>
+        • The deployment is set to <b>Execute as: Me</b> and <b>Who has access: Anyone</b><br>
+        • You have re-deployed after the latest script changes<br>
+        • CORS is not blocked by your browser (try opening the URL directly first)<br><br>
+        <button class="refresh-btn" onclick="loadData()" style="margin-top:8px">Try Again</button>
+      </div>`;
+    document.getElementById('headerSub').textContent = 'Data unavailable';
+  } finally {
+    btn.classList.remove('spinning');
+  }
+}
+
+function processData(json) {
+  const dump = json.roomDump || [];
+  const batchCount = json.batchCount || {};
+
+  // Parse Room Dump (skip header row)
+  const rows = [];
+  for (let i = 1; i < dump.length; i++) {
+    const r = dump[i];
+    if (!r[0]) continue;
+    const batch = String(r[1] || '').trim();
+    const capacity = Number(r[9]) || 0;
+    // Use Final Student List count if available, else fallback to dump total_students
+    const students = batchCount[batch] !== undefined ? batchCount[batch] : Number(r[10]) || 0;
+    const pct = capacity > 0 ? students / capacity : 0;
+    rows.push({
+      center:   String(r[0]).trim(),
+      batch,
+      building: String(r[2]).trim(),
+      room:     String(r[3]).trim(),
+      shift:    String(r[4]).trim(),
+      type:     String(r[7]).trim(),
+      start:    String(r[8]).split('T')[0],
+      capacity, students, pct
+    });
+  }
+
+  allData = rows;
+
+  // Populate center filter
+  const centers = [...new Set(rows.map(r => r.center))].sort();
+  const sel = document.getElementById('centerFilter');
+  sel.innerHTML = '<option value="">All Centers</option>' +
+    centers.map(c => `<option value="${esc(c)}">${c}</option>`).join('');
+
+  // Save last-fetched time
+  if (json.lastUpdated) {
+    const d = new Date(json.lastUpdated);
+    document.getElementById('lastUpdated').textContent = 'Sheet updated ' + d.toLocaleString();
+  }
+
+  filterAll();
+}
+
+// ── FILTERS ──────────────────────────────────────────────────
+function setFill(el, val) {
+  activeFill = val;
+  document.querySelectorAll('.chip').forEach(c => {
+    const f = c.dataset.fill;
+    c.className = 'chip';
+    if (f === val) {
+      const map = {'':'active-all','over':'active-over','high':'active-high','med':'active-med','low':'active-low','empty':'active-empty'};
+      c.classList.add(map[f] || 'active-all');
+    }
+  });
+  filterAll();
+}
+
+function applyFilters() {
+  const q       = document.getElementById('searchInput').value.toLowerCase().trim();
+  const center  = document.getElementById('centerFilter').value;
+  const type    = document.getElementById('typeFilter').value;
+  const fill    = activeFill;
+
+  return allData.filter(r => {
+    if (center && r.center !== center) return false;
+    if (type   && r.type   !== type)   return false;
+    if (fill === 'over'  && r.pct <= 1)          return false;
+    if (fill === 'high'  && (r.pct < 0.8 || r.pct > 1)) return false;
+    if (fill === 'med'   && (r.pct < 0.4 || r.pct >= 0.8)) return false;
+    if (fill === 'low'   && (r.pct <= 0 || r.pct >= 0.4)) return false;
+    if (fill === 'empty' && r.pct !== 0) return false;
+    if (q) {
+      const hay = `${r.center} ${r.building} ${r.room} ${r.batch} ${r.type} ${r.shift}`.toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+}
+
+function filterAll() {
+  const filtered = applyFilters();
+  renderStats(filtered);
+  renderContent(filtered);
+}
+
+// ── STATS ─────────────────────────────────────────────────────
+function renderStats(rows) {
+  const cap  = rows.reduce((s,r)=>s+r.capacity,0);
+  const stu  = rows.reduce((s,r)=>s+r.students,0);
+  const over = rows.filter(r=>r.pct>1).length;
+  const emp  = rows.filter(r=>r.pct===0).length;
+  const pct  = cap>0 ? stu/cap : 0;
+  const ctrs = new Set(rows.map(r=>r.center)).size;
+
+  document.getElementById('s-rooms').textContent   = rows.length.toLocaleString();
+  document.getElementById('s-centers').textContent = ctrs;
+  document.getElementById('s-cap').textContent     = cap.toLocaleString();
+  document.getElementById('s-stu').textContent     = stu.toLocaleString();
+  document.getElementById('s-fill').textContent    = Math.round(pct*100)+'%';
+  document.getElementById('s-over').textContent    = over;
+  document.getElementById('s-empty').textContent   = emp;
+}
+
+// ── RENDER ────────────────────────────────────────────────────
+function groupBy(arr, key) {
+  const m = {};
+  arr.forEach(r=>{ (m[r[key]]=m[r[key]]||[]).push(r); });
+  return m;
+}
+
+function renderContent(filtered) {
+  const main = document.getElementById('mainContent');
+  if (!filtered.length) { main.innerHTML='<div class="empty-state">No rooms match your filters.</div>'; return; }
+
+  const byCenterMap = groupBy(filtered,'center');
+  const centers = Object.keys(byCenterMap).sort();
+  let html = '';
+
+  centers.forEach(center => {
+    const cRows = byCenterMap[center];
+    const totalCap = cRows.reduce((s,r)=>s+r.capacity,0);
+    const totalStu = cRows.reduce((s,r)=>s+r.students,0);
+    const cPct = totalCap>0 ? totalStu/totalCap : 0;
+    const over = cRows.filter(r=>r.pct>1).length;
+    const cId = 'c_'+sanitize(center);
+    const isOpen = expandedCenters[center] !== false;
+    const fc = fillColor(cPct);
+
+    const byBuilding = groupBy(cRows,'building');
+    const buildings  = Object.keys(byBuilding).sort();
+
+    html += `<div class="center-block">
+      <div class="center-header${isOpen?' is-open':''}" onclick="toggleC('${center}')">
+        <svg class="chevron-icon${isOpen?' open':''}" id="cc_${cId}" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+        <div class="center-name">${center}</div>
+        <div class="center-chips">
+          <span class="mini-pill mp-rooms">${cRows.length} rooms</span>
+          <span style="font-size:11px;color:var(--text3)">${totalStu.toLocaleString()} / ${totalCap.toLocaleString()}</span>
+          ${over>0?`<span class="over-tag">${over} OVER</span>`:''}
+        </div>
+        <div class="fill-num" style="color:${fc.txt}">${Math.round(cPct*100)}%</div>
+      </div>
+      <div id="cb_${cId}" ${isOpen?'':'class="collapsed"'}>`;
+
+    buildings.forEach(building => {
+      const bRows = byBuilding[building];
+      const bCap  = bRows.reduce((s,r)=>s+r.capacity,0);
+      const bStu  = bRows.reduce((s,r)=>s+r.students,0);
+      const bPct  = bCap>0?bStu/bCap:0;
+      const bId   = cId+'_'+sanitize(building);
+      const bOpen = expandedBuildings[bId] !== false;
+      const bfc   = fillColor(bPct);
+
+      // Sort by pct descending
+      const sortedRows = [...bRows].sort((a,b)=>b.pct-a.pct);
+
+      html += `<div class="building-block">
+        <div class="building-header" onclick="toggleB('${bId}')">
+          <div class="building-dot" style="background:${bfc.dot}"></div>
+          <div class="building-name">${building}</div>
+          <div class="building-meta">
+            <span>${bRows.length} rooms</span>
+            <span>${bStu} / ${bCap}</span>
+            <span style="color:${bfc.txt};font-weight:600">${Math.round(bPct*100)}%</span>
+          </div>
+          <svg class="bchev${bOpen?' open':''}" id="bc_${bId}" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+        </div>
+        <div id="bb_${bId}" ${bOpen?'':'class="collapsed"'}>
+          <div class="table-wrap">
+            <table>
+              <thead><tr>
+                <th style="width:28px">#</th>
+                <th>Room</th>
+                <th>Batch Code</th>
+                <th>Shift</th>
+                <th>Type</th>
+                <th>Start</th>
+                <th class="num">Cap.</th>
+                <th class="num">Students</th>
+                <th style="min-width:160px">Fill Rate</th>
+              </tr></thead>
+              <tbody>`;
+
+      sortedRows.forEach((r,i) => {
+        const rfc = fillColor(r.pct);
+        const barW = Math.min(r.pct,1)*100;
+        const isOver = r.pct>1;
+        const startFmt = r.start.replace(/^(\d{4})-(\d{2})-(\d{2})$/,'$3/$2/$1');
+        html += `<tr>
+          <td><span class="rank-badge">${i+1}</span></td>
+          <td class="room-name">${r.room}</td>
+          <td class="batch-code">${r.batch}</td>
+          <td>${shiftBadge(r.shift)}</td>
+          <td>${typeBadge(r.type)}</td>
+          <td class="muted">${startFmt}</td>
+          <td class="num muted">${r.capacity}</td>
+          <td class="num" style="font-weight:600;color:${rfc.txt}">${r.students}${isOver?'<span class="over-tag" style="margin-left:5px">OVER</span>':''}</td>
+          <td>
+            <div class="fill-wrap">
+              <div class="bar-bg"><div class="bar-fg ${rfc.bar}" style="width:${barW}%"></div></div>
+              <span class="fp" style="color:${rfc.txt}">${Math.round(r.pct*100)}%</span>
+            </div>
+          </td>
+        </tr>`;
+      });
+
+      html += `</tbody></table></div></div></div>`;
+    });
+
+    html += `</div></div>`;
+  });
+
+  main.innerHTML = html;
+}
+
+// ── HELPERS ───────────────────────────────────────────────────
+function sanitize(s) { return s.replace(/[^a-z0-9]/gi,'_'); }
+function esc(s) { return s.replace(/"/g,'&quot;'); }
+
+function fillColor(p) {
+  if (p>1)    return { bar:'c-red',   txt:'var(--red)',   dot:'var(--red)' };
+  if (p>=0.8) return { bar:'c-green', txt:'var(--green)', dot:'var(--green)' };
+  if (p>=0.4) return { bar:'c-amber', txt:'var(--amber)', dot:'var(--amber)' };
+  if (p>0)    return { bar:'c-blue',  txt:'var(--blue)',  dot:'var(--blue)' };
+  return              { bar:'c-gray',  txt:'var(--text3)', dot:'var(--text3)' };
+}
+
+function shiftBadge(s) {
+  const m={Morning:'b-morning',Evening:'b-evening',Afternoon:'b-afternoon',Any:'b-any'};
+  return `<span class="badge ${m[s]||'b-any'}">${s}</span>`;
+}
+function typeBadge(t) {
+  const m={Weekday:'b-weekday',Weekend:'b-weekend',ICSE:'b-icse',Rankers:'b-rankers',TTS:'b-tts'};
+  return `<span class="badge ${m[t]||'b-other'}">${t}</span>`;
+}
+
+function toggleC(center) {
+  const cId = 'c_'+sanitize(center);
+  const body = document.getElementById('cb_'+cId);
+  const chev = document.getElementById('cc_'+cId);
+  const hdr  = chev.closest('.center-header');
+  const isOpen = !body.classList.contains('collapsed');
+  body.classList.toggle('collapsed', isOpen);
+  chev.classList.toggle('open', !isOpen);
+  hdr.classList.toggle('is-open', !isOpen);
+  expandedCenters[center] = !isOpen;
+}
+
+function toggleB(bId) {
+  const body = document.getElementById('bb_'+bId);
+  const chev = document.getElementById('bc_'+bId);
+  const isOpen = !body.classList.contains('collapsed');
+  body.classList.toggle('collapsed', isOpen);
+  chev.classList.toggle('open', !isOpen);
+  expandedBuildings[bId] = !isOpen;
+}
+
+// ── BOOT ─────────────────────────────────────────────────────
+loadData();
+</script>
+</body>
+</html>
