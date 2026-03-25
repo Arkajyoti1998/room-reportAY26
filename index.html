@@ -8,679 +8,575 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  --bg:       #0f1117;
-  --bg2:      #161820;
-  --bg3:      #1d1f2a;
-  --bg4:      #242636;
-  --border:   rgba(255,255,255,0.07);
-  --border2:  rgba(255,255,255,0.12);
-  --text:     #e8eaf0;
-  --text2:    #9499b0;
-  --text3:    #5a5f78;
-  --accent:   #6c63ff;
-  --accent2:  #8b83ff;
-  --accent-bg: rgba(108,99,255,0.12);
-  --green:    #22d3a0;
-  --green-bg: rgba(34,211,160,0.1);
-  --amber:    #f59e0b;
-  --amber-bg: rgba(245,158,11,0.1);
-  --red:      #f43f5e;
-  --red-bg:   rgba(244,63,94,0.1);
-  --blue:     #38bdf8;
-  --blue-bg:  rgba(56,189,248,0.1);
-  --purple:   #a78bfa;
-  --purple-bg:rgba(167,139,250,0.1);
-  --teal:     #2dd4bf;
-  --teal-bg:  rgba(45,212,191,0.1);
-  --r:        10px;
-  --r-sm:     6px;
-  --r-lg:     14px;
-  --font:     'Inter', system-ui, sans-serif;
-  --mono:     'JetBrains Mono', monospace;
-  --shadow:   0 4px 24px rgba(0,0,0,0.4);
-  --shadow-sm:0 2px 8px rgba(0,0,0,0.3);
+  --bg:        #0d0f1a;
+  --bg3:       #1a1d2e;
+  --bg4:       #21243a;
+  --bg5:       #272b42;
+  --border:    rgba(255,255,255,0.06);
+  --border2:   rgba(255,255,255,0.11);
+  --border3:   rgba(255,255,255,0.17);
+  --text:      #e8eaf6;
+  --text2:     #9096b8;
+  --text3:     #565c80;
+  --accent:    #6c63ff;
+  --accent2:   #9d97ff;
+  --accent-bg: rgba(108,99,255,0.13);
+  --green:     #10d9a0;
+  --green-bg:  rgba(16,217,160,0.10);
+  --amber:     #f5a623;
+  --amber-bg:  rgba(245,166,35,0.10);
+  --red:       #ff4d6d;
+  --red-bg:    rgba(255,77,109,0.10);
+  --blue:      #38bdf8;
+  --blue-bg:   rgba(56,189,248,0.10);
+  --r:10px; --r-sm:6px; --r-lg:14px;
+  --font:'Inter',system-ui,sans-serif;
+  --mono:'JetBrains Mono',monospace;
 }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:13px;line-height:1.6;min-height:100vh;}
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: var(--font);
-  background: var(--bg);
-  color: var(--text);
-  font-size: 13px;
-  line-height: 1.6;
-  min-height: 100vh;
-}
+/* ── NAV ── */
+.nav{background:#10122088;backdrop-filter:blur(16px);border-bottom:1px solid var(--border2);padding:0 28px;display:flex;align-items:center;gap:0;position:sticky;top:0;z-index:300;height:52px;}
+.nav-logo{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#c026d3);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;box-shadow:0 0 14px rgba(108,99,255,0.5);margin-right:20px;flex-shrink:0;}
+.nav-tab{display:flex;align-items:center;gap:7px;padding:0 18px;height:52px;font-size:13px;font-weight:500;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;user-select:none;white-space:nowrap;}
+.nav-tab:hover{color:var(--text2);}
+.nav-tab.active{color:var(--accent2);border-bottom-color:var(--accent);}
+.nav-spacer{flex:1;}
+.nav-meta{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:10px;}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.refresh-btn{display:flex;align-items:center;gap:5px;background:var(--accent-bg);border:1px solid rgba(108,99,255,0.3);color:var(--accent2);padding:5px 12px;border-radius:20px;font-size:11px;font-weight:500;cursor:pointer;transition:all 0.2s;font-family:var(--font);}
+.refresh-btn:hover{background:rgba(108,99,255,0.22);}
+.refresh-btn.spinning svg{animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
 
-/* ── HEADER ── */
-.header {
-  background: linear-gradient(135deg, #1a1c2e 0%, #141628 50%, #0f1117 100%);
-  border-bottom: 1px solid var(--border2);
-  padding: 0 28px;
-  position: sticky; top: 0; z-index: 200;
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  height: 64px;
-  backdrop-filter: blur(12px);
-}
-.header-left { display: flex; align-items: center; gap: 14px; }
-.logo {
-  width: 36px; height: 36px; border-radius: 10px;
-  background: linear-gradient(135deg, var(--accent) 0%, #9c35ff 100%);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px; font-weight: 700; color: #fff; flex-shrink: 0;
-  box-shadow: 0 0 16px rgba(108,99,255,0.4);
-}
-.header-title { font-size: 15px; font-weight: 600; letter-spacing: -0.2px; }
-.header-sub { font-size: 11px; color: var(--text3); margin-top: 1px; }
-.header-right { display: flex; align-items: center; gap: 10px; }
-.refresh-btn {
-  display: flex; align-items: center; gap: 6px;
-  background: var(--accent-bg); border: 1px solid rgba(108,99,255,0.3);
-  color: var(--accent2); padding: 6px 14px; border-radius: 20px;
-  font-size: 12px; font-weight: 500; cursor: pointer;
-  transition: all 0.2s; font-family: var(--font);
-}
-.refresh-btn:hover { background: rgba(108,99,255,0.2); border-color: var(--accent); }
-.refresh-btn.spinning svg { animation: spin 1s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.last-updated { font-size: 11px; color: var(--text3); white-space: nowrap; }
+/* ── PAGES ── */
+.page{display:none;}
+.page.active{display:block;}
 
 /* ── STATS BAR ── */
-.stats-bar {
-  background: var(--bg2);
-  border-bottom: 1px solid var(--border);
-  padding: 14px 28px;
-  display: flex; gap: 8px; flex-wrap: wrap;
-  overflow-x: auto;
-}
-.stat-card {
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  border-radius: var(--r-sm);
-  padding: 10px 16px;
-  min-width: 120px;
-  flex-shrink: 0;
-  transition: border-color 0.2s;
-}
-.stat-card:hover { border-color: var(--border2); }
-.stat-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.8px; font-weight: 600; }
-.stat-value { font-size: 20px; font-weight: 700; margin-top: 2px; line-height: 1; }
-.stat-sub { font-size: 10px; color: var(--text3); margin-top: 3px; }
-.stat-card.accent .stat-value { color: var(--accent2); }
-.stat-card.green .stat-value  { color: var(--green); }
-.stat-card.amber .stat-value  { color: var(--amber); }
-.stat-card.red .stat-value    { color: var(--red); }
-.stat-card.blue .stat-value   { color: var(--blue); }
+.stats-bar{background:linear-gradient(180deg,#13152a 0%,var(--bg) 100%);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;gap:10px;flex-wrap:wrap;}
+.stat-card{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:12px 18px;min-width:110px;flex-shrink:0;transition:border-color 0.2s,transform 0.2s;}
+.stat-card:hover{border-color:var(--border3);transform:translateY(-1px);}
+.stat-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.8px;font-weight:600;}
+.stat-value{font-size:22px;font-weight:700;margin-top:3px;line-height:1;}
+.stat-sub{font-size:10px;color:var(--text3);margin-top:4px;}
+.sv-ac{color:var(--accent2);} .sv-gr{color:var(--green);} .sv-am{color:var(--amber);} .sv-rd{color:var(--red);} .sv-bl{color:var(--blue);}
 
 /* ── FILTERS ── */
-.filters-bar {
-  background: var(--bg2);
-  border-bottom: 1px solid var(--border);
-  padding: 12px 28px;
-  display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
-}
-.filter-group { display: flex; align-items: center; gap: 6px; }
-.filter-label { font-size: 11px; color: var(--text3); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
-.search-wrap { position: relative; flex: 1; min-width: 200px; max-width: 320px; }
-.search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text3); width: 14px; height: 14px; }
-input[type=text], select {
-  background: var(--bg3);
-  border: 1px solid var(--border2);
-  border-radius: var(--r-sm);
-  padding: 7px 10px 7px 32px;
-  font-size: 12px; color: var(--text);
-  font-family: var(--font);
-  outline: none; width: 100%;
-  transition: border-color 0.2s;
-  -webkit-appearance: none;
-}
-input[type=text] { padding-left: 32px; }
-select { padding-left: 10px; padding-right: 28px; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235a5f78' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; min-width: 140px; }
-input[type=text]:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(108,99,255,0.15); }
-.fill-chips { display: flex; gap: 6px; flex-wrap: wrap; }
-.chip {
-  padding: 5px 12px; border-radius: 20px;
-  font-size: 11px; font-weight: 500; cursor: pointer;
-  border: 1px solid var(--border2); background: var(--bg3);
-  color: var(--text2); transition: all 0.15s;
-  white-space: nowrap;
-}
-.chip:hover { border-color: var(--border2); background: var(--bg4); }
-.chip.active-all   { background: var(--accent-bg); border-color: var(--accent); color: var(--accent2); }
-.chip.active-over  { background: var(--red-bg);    border-color: var(--red);    color: var(--red); }
-.chip.active-high  { background: var(--green-bg);  border-color: var(--green);  color: var(--green); }
-.chip.active-med   { background: var(--amber-bg);  border-color: var(--amber);  color: var(--amber); }
-.chip.active-low   { background: var(--blue-bg);   border-color: var(--blue);   color: var(--blue); }
-.chip.active-empty { background: var(--bg4);       border-color: var(--text3);  color: var(--text2); }
+.filters-bar{background:var(--bg);border-bottom:1px solid var(--border);padding:10px 28px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.filter-label{font-size:10px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;white-space:nowrap;}
+.search-wrap{position:relative;flex:1;min-width:180px;max-width:280px;}
+.search-wrap .si{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--text3);pointer-events:none;}
+input[type=text],select{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);padding:7px 10px;font-size:12px;color:var(--text);font-family:var(--font);outline:none;transition:border-color 0.2s,box-shadow 0.2s;-webkit-appearance:none;}
+input[type=text]{padding-left:30px;width:100%;}
+select{padding-right:26px;cursor:pointer;min-width:150px;max-width:230px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23565c80' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;}
+input[type=text]:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(108,99,255,0.15);}
+.fill-chips{display:flex;gap:5px;flex-wrap:wrap;}
+.chip{padding:5px 11px;border-radius:20px;font-size:11px;font-weight:500;cursor:pointer;border:1px solid var(--border2);background:var(--bg3);color:var(--text3);transition:all 0.15s;white-space:nowrap;}
+.chip:hover{background:var(--bg4);color:var(--text2);}
+.chip.ca{background:var(--accent-bg);border-color:rgba(108,99,255,0.4);color:var(--accent2);}
+.chip.co{background:var(--red-bg);border-color:rgba(255,77,109,0.3);color:var(--red);}
+.chip.ch{background:var(--green-bg);border-color:rgba(16,217,160,0.3);color:var(--green);}
+.chip.cm{background:var(--amber-bg);border-color:rgba(245,166,35,0.3);color:var(--amber);}
+.chip.cl{background:var(--blue-bg);border-color:rgba(56,189,248,0.3);color:var(--blue);}
+.chip.ce{background:var(--bg4);border-color:var(--text3);color:var(--text2);}
+
+/* ── DOWNLOAD BTN ── */
+.dl-btn{display:flex;align-items:center;gap:6px;background:var(--green-bg);border:1px solid rgba(16,217,160,0.3);color:var(--green);padding:7px 14px;border-radius:var(--r-sm);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:var(--font);white-space:nowrap;}
+.dl-btn:hover{background:rgba(16,217,160,0.2);transform:translateY(-1px);box-shadow:0 4px 12px rgba(16,217,160,0.15);}
 
 /* ── MAIN ── */
-main { padding: 20px 28px 48px; }
-.center-block { margin-bottom: 16px; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border); background: var(--bg2); transition: border-color 0.2s; }
-.center-block:hover { border-color: var(--border2); }
+main{padding:20px 28px 60px;}
 
-/* ── CENTER HEADER ── */
-.center-header {
-  display: flex; align-items: center; gap: 12px;
-  padding: 14px 20px;
-  cursor: pointer; user-select: none;
-  background: linear-gradient(90deg, var(--bg3) 0%, var(--bg2) 100%);
-  border-bottom: 1px solid transparent;
-  transition: all 0.2s;
-  position: relative;
-}
-.center-header::before {
-  content: '';
-  position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
-  background: linear-gradient(180deg, var(--accent) 0%, #9c35ff 100%);
-  border-radius: 0 2px 2px 0;
-}
-.center-header.is-open { border-bottom-color: var(--border); }
-.center-header:hover { background: linear-gradient(90deg, var(--bg4) 0%, var(--bg3) 100%); }
-.center-name { font-size: 14px; font-weight: 600; flex: 1; }
-.center-chips { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-.mini-pill {
-  font-size: 10px; font-weight: 500; padding: 3px 9px;
-  border-radius: 10px; white-space: nowrap;
-}
-.mp-rooms { background: var(--bg4); color: var(--text2); }
-.mp-fill  { }
-.fill-num { font-size: 14px; font-weight: 700; min-width: 48px; text-align: right; }
-.chevron-icon { color: var(--text3); transition: transform 0.25s; flex-shrink: 0; }
-.chevron-icon.open { transform: rotate(180deg); }
+/* ── CENTER BLOCK ── */
+.center-block{margin-bottom:14px;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);background:var(--bg3);transition:border-color 0.2s;}
+.center-block:hover{border-color:var(--border2);}
+.center-header{display:flex;align-items:center;gap:12px;padding:13px 20px;cursor:pointer;user-select:none;background:linear-gradient(90deg,var(--bg4) 0%,var(--bg3) 100%);border-bottom:1px solid transparent;transition:all 0.2s;position:relative;}
+.center-header::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--accent),#c026d3);border-radius:0 2px 2px 0;}
+.center-header.open{border-bottom-color:var(--border);}
+.center-header:hover{background:linear-gradient(90deg,var(--bg5) 0%,var(--bg4) 100%);}
+.center-name{font-size:14px;font-weight:600;flex:1;}
+.center-pills{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.mpill{font-size:10px;font-weight:500;padding:3px 8px;border-radius:10px;background:var(--bg5);color:var(--text2);white-space:nowrap;}
+.over-tag{font-size:9px;font-weight:700;padding:2px 6px;background:var(--red-bg);color:var(--red);border:1px solid rgba(255,77,109,0.25);border-radius:4px;}
+.fill-num{font-size:15px;font-weight:700;min-width:50px;text-align:right;}
+.chev{color:var(--text3);transition:transform 0.25s;flex-shrink:0;}
+.chev.open{transform:rotate(180deg);}
 
-/* ── BUILDING HEADER ── */
-.building-block { border-top: 1px solid var(--border); }
-.building-header {
-  display: flex; align-items: center; gap: 10px;
-  padding: 10px 20px 10px 32px;
-  cursor: pointer; user-select: none;
-  background: var(--bg2);
-  transition: background 0.15s;
-}
-.building-header:hover { background: var(--bg3); }
-.building-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text3); flex-shrink: 0; }
-.building-name { font-size: 12px; font-weight: 500; color: var(--text2); flex: 1; }
-.building-meta { display: flex; gap: 12px; align-items: center; font-size: 11px; color: var(--text3); }
-.bchev { color: var(--text3); transition: transform 0.2s; }
-.bchev.open { transform: rotate(180deg); }
+/* ── BUILDING ── */
+.building-block{border-top:1px solid var(--border);}
+.building-header{display:flex;align-items:center;gap:10px;padding:9px 20px 9px 30px;cursor:pointer;user-select:none;background:var(--bg3);transition:background 0.15s;}
+.building-header:hover{background:var(--bg4);}
+.bldot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.blname{font-size:12px;font-weight:500;color:var(--text2);flex:1;}
+.blmeta{display:flex;gap:12px;align-items:center;font-size:11px;color:var(--text3);}
+.bchev{color:var(--text3);transition:transform 0.2s;}
+.bchev.open{transform:rotate(180deg);}
 
 /* ── TABLE ── */
-.table-wrap { overflow-x: auto; }
-table { width: 100%; border-collapse: collapse; }
-thead th {
-  background: var(--bg3);
-  padding: 8px 14px;
-  text-align: left;
-  font-size: 10px; font-weight: 600; color: var(--text3);
-  text-transform: uppercase; letter-spacing: 0.7px;
-  border-bottom: 1px solid var(--border2);
-  white-space: nowrap;
-  cursor: pointer;
-  user-select: none;
-  transition: color 0.15s;
-}
-thead th:hover { color: var(--text2); }
-thead th.sort-asc::after  { content: ' ↑'; color: var(--accent2); }
-thead th.sort-desc::after { content: ' ↓'; color: var(--accent2); }
-thead th.num, td.num { text-align: right; }
-tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
-tbody tr:last-child { border-bottom: none; }
-tbody tr:hover { background: rgba(255,255,255,0.02); }
-td { padding: 10px 14px; vertical-align: middle; white-space: nowrap; }
-td.room-name { font-family: var(--mono); font-size: 12px; font-weight: 500; color: var(--text); }
-td.batch-code { font-family: var(--mono); font-size: 11px; color: var(--text3); }
-td.muted { color: var(--text2); font-size: 12px; }
+.table-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+thead th{background:var(--bg4);padding:8px 14px;text-align:left;font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.6px;border-bottom:1px solid var(--border2);white-space:nowrap;}
+thead th.num{text-align:right;}
+tbody tr{border-bottom:1px solid var(--border);transition:background 0.1s;}
+tbody tr:last-child{border-bottom:none;}
+tbody tr:hover{background:rgba(255,255,255,0.025);}
+td{padding:9px 14px;vertical-align:middle;white-space:nowrap;}
+td.num{text-align:right;}
+td.mono{font-family:var(--mono);font-size:11px;}
+td.dim{color:var(--text2);font-size:12px;}
+.rank{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--bg5);color:var(--text3);font-size:10px;font-weight:600;}
 
 /* ── BADGES ── */
-.badge {
-  display: inline-flex; align-items: center;
-  padding: 3px 9px; border-radius: 20px;
-  font-size: 10px; font-weight: 600; letter-spacing: 0.3px;
-  white-space: nowrap;
-}
-.b-morning   { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); }
-.b-evening   { background: rgba(167,139,250,0.12); color: #a78bfa; border: 1px solid rgba(167,139,250,0.2); }
-.b-afternoon { background: rgba(45,212,191,0.12);  color: #2dd4bf; border: 1px solid rgba(45,212,191,0.2); }
-.b-any       { background: var(--bg4); color: var(--text2); border: 1px solid var(--border2); }
-.b-weekday   { background: rgba(56,189,248,0.10); color: #38bdf8; border: 1px solid rgba(56,189,248,0.2); }
-.b-weekend   { background: rgba(34,211,160,0.10); color: #22d3a0; border: 1px solid rgba(34,211,160,0.2); }
-.b-icse      { background: rgba(251,146,60,0.10); color: #fb923c; border: 1px solid rgba(251,146,60,0.2); }
-.b-rankers   { background: rgba(244,63,94,0.10);  color: #fb7185; border: 1px solid rgba(244,63,94,0.2); }
-.b-tts       { background: rgba(232,121,249,0.10);color: #e879f9; border: 1px solid rgba(232,121,249,0.2); }
-.b-other     { background: var(--bg4); color: var(--text2); border: 1px solid var(--border2); }
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;white-space:nowrap;}
+.bm{background:rgba(245,166,35,0.12);color:#fbbf24;border:1px solid rgba(245,166,35,0.2);}
+.be{background:rgba(167,139,250,0.12);color:#a78bfa;border:1px solid rgba(167,139,250,0.2);}
+.bn{background:rgba(45,212,191,0.12);color:#2dd4bf;border:1px solid rgba(45,212,191,0.2);}
+.ba{background:var(--bg5);color:var(--text2);border:1px solid var(--border2);}
+.bwd{background:rgba(56,189,248,0.10);color:#38bdf8;border:1px solid rgba(56,189,248,0.2);}
+.bwe{background:rgba(16,217,160,0.10);color:#10d9a0;border:1px solid rgba(16,217,160,0.2);}
+.bi{background:rgba(251,146,60,0.10);color:#fb923c;border:1px solid rgba(251,146,60,0.2);}
+.br{background:rgba(255,77,109,0.10);color:#ff7096;border:1px solid rgba(255,77,109,0.2);}
+.bt{background:rgba(232,121,249,0.10);color:#e879f9;border:1px solid rgba(232,121,249,0.2);}
+.bo{background:var(--bg5);color:var(--text2);border:1px solid var(--border2);}
 
 /* ── FILL BAR ── */
-.fill-wrap { display: flex; align-items: center; gap: 8px; min-width: 140px; }
-.bar-bg { flex: 1; height: 5px; background: var(--bg4); border-radius: 3px; overflow: visible; position: relative; min-width: 70px; }
-.bar-fg { height: 100%; border-radius: 3px; transition: width 0.4s ease; position: relative; }
-.bar-fg::after { content:''; position:absolute; right:0; top:-2px; width:9px; height:9px; border-radius:50%; background:inherit; box-shadow: 0 0 6px currentColor; }
-.fp { font-size: 12px; font-weight: 600; min-width: 42px; text-align: right; }
-.over-tag {
-  font-size: 9px; font-weight: 700; padding: 2px 5px;
-  background: var(--red-bg); color: var(--red);
-  border: 1px solid rgba(244,63,94,0.3);
-  border-radius: 4px; letter-spacing: 0.3px;
-}
-.c-green  { background: var(--green);  color: var(--green); }
-.c-amber  { background: var(--amber);  color: var(--amber); }
-.c-red    { background: var(--red);    color: var(--red); }
-.c-blue   { background: var(--blue);   color: var(--blue); }
-.c-gray   { background: var(--text3);  color: var(--text3); }
+.fill-wrap{display:flex;align-items:center;gap:8px;min-width:150px;}
+.bar-bg{flex:1;height:4px;background:var(--bg5);border-radius:2px;overflow:visible;position:relative;min-width:60px;}
+.bar-fg{height:100%;border-radius:2px;transition:width 0.4s ease;}
+.bar-fg::after{content:'';position:absolute;right:-1px;top:-3px;width:10px;height:10px;border-radius:50%;background:inherit;opacity:0.6;}
+.fp{font-size:12px;font-weight:700;min-width:40px;text-align:right;}
+.bg{background:var(--green);} .ba2{background:var(--amber);} .br2{background:var(--red);} .bb2{background:var(--blue);} .bgr{background:var(--text3);}
+.tg{color:var(--green);} .ta{color:var(--amber);} .tr{color:var(--red);} .tb2{color:var(--blue);} .tgr{color:var(--text3);}
 
-/* ── LOADING / ERROR ── */
-.loader {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 80px 20px; gap: 16px;
-}
-.spinner {
-  width: 40px; height: 40px;
-  border: 3px solid var(--border2);
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-.loader-text { font-size: 13px; color: var(--text3); }
-.error-box {
-  margin: 32px; padding: 24px;
-  background: var(--red-bg); border: 1px solid rgba(244,63,94,0.2);
-  border-radius: var(--r); color: var(--red);
-  font-size: 13px; line-height: 1.7;
-}
-.error-box strong { display: block; font-size: 15px; margin-bottom: 8px; }
-.collapsed { display: none; }
-.empty-state { padding: 40px; text-align: center; color: var(--text3); font-size: 13px; }
+/* ── STUDENT COUNT BAR ── */
+.count-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 28px;background:var(--bg3);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;}
+.count-bar span{font-size:12px;color:var(--text2);}
+.count-bar strong{color:var(--text);}
 
-/* ── TOOLTIP RANK ── */
-.rank-badge {
-  display: inline-block; font-size: 10px; font-weight: 700;
-  width: 20px; height: 20px; border-radius: 50%;
-  text-align: center; line-height: 20px;
-  background: var(--bg4); color: var(--text3);
-  flex-shrink: 0;
-}
-
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--border2); }
-
-@media (max-width: 640px) {
-  .header, main, .stats-bar, .filters-bar { padding-left: 14px; padding-right: 14px; }
-  .center-header, .building-header { padding-left: 14px; padding-right: 14px; }
-  .building-header { padding-left: 18px; }
-}
+/* ── LOADER / ERROR ── */
+.loader{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:16px;}
+.spinner{width:36px;height:36px;border:3px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;}
+.loader-text{font-size:13px;color:var(--text3);}
+.error-box{margin:28px;padding:22px;background:var(--red-bg);border:1px solid rgba(255,77,109,0.2);border-radius:var(--r);color:var(--red);font-size:13px;line-height:1.8;}
+.error-box strong{display:block;font-size:15px;margin-bottom:6px;}
+.collapsed{display:none!important;}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:var(--border2);}
+@media(max-width:640px){.nav,.stats-bar,.filters-bar,main,.count-bar{padding-left:14px;padding-right:14px;}}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="header">
-  <div class="header-left">
-    <div class="logo">R</div>
-    <div>
-      <div class="header-title">Room Allocation Report</div>
-      <div class="header-sub" id="headerSub">Loading data…</div>
-    </div>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">R</div>
+  <div class="nav-tab active" id="tab-rooms" onclick="switchTab('rooms')">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    Room Allocation
   </div>
-  <div class="header-right">
-    <span class="last-updated" id="lastUpdated"></span>
+  <div class="nav-tab" id="tab-students" onclick="switchTab('students')">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    Student List
+  </div>
+  <div class="nav-spacer"></div>
+  <div class="nav-meta">
+    <div class="live-dot"></div>
+    <span id="lastUpdated">Live</span>
     <button class="refresh-btn" id="refreshBtn" onclick="loadData()">
-      <svg id="refreshIcon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+      <svg id="refreshIcon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
       Refresh
     </button>
   </div>
-</header>
+</nav>
 
-<!-- STATS BAR -->
-<div class="stats-bar" id="statsBar">
-  <div class="stat-card accent"><div class="stat-label">Total Rooms</div><div class="stat-value" id="s-rooms">—</div></div>
-  <div class="stat-card blue"><div class="stat-label">Centers</div><div class="stat-value" id="s-centers">—</div></div>
-  <div class="stat-card"><div class="stat-label">Capacity</div><div class="stat-value" id="s-cap">—</div></div>
-  <div class="stat-card green"><div class="stat-label">Enrolled</div><div class="stat-value" id="s-stu">—</div></div>
-  <div class="stat-card amber"><div class="stat-label">Overall Fill</div><div class="stat-value" id="s-fill">—</div></div>
-  <div class="stat-card red"><div class="stat-label">Overfilled</div><div class="stat-value" id="s-over">—</div><div class="stat-sub">rooms &gt;100%</div></div>
-  <div class="stat-card"><div class="stat-label">Empty</div><div class="stat-value" id="s-empty">—</div><div class="stat-sub">0 students</div></div>
-</div>
-
-<!-- FILTERS -->
-<div class="filters-bar">
-  <div class="filter-group">
+<!-- PAGE 1: ROOM ALLOCATION -->
+<div class="page active" id="page-rooms">
+  <div class="stats-bar">
+    <div class="stat-card"><div class="stat-label">Total Rooms</div><div class="stat-value sv-ac" id="s-rooms">—</div></div>
+    <div class="stat-card"><div class="stat-label">Centers</div><div class="stat-value sv-bl" id="s-centers">—</div></div>
+    <div class="stat-card"><div class="stat-label">Capacity</div><div class="stat-value" id="s-cap">—</div></div>
+    <div class="stat-card"><div class="stat-label">Enrolled</div><div class="stat-value sv-gr" id="s-stu">—</div></div>
+    <div class="stat-card"><div class="stat-label">Overall Fill</div><div class="stat-value sv-am" id="s-fill">—</div></div>
+    <div class="stat-card"><div class="stat-label">Overfilled</div><div class="stat-value sv-rd" id="s-over">—</div><div class="stat-sub">rooms &gt;100%</div></div>
+    <div class="stat-card"><div class="stat-label">Empty</div><div class="stat-value" id="s-empty">—</div><div class="stat-sub">0 students</div></div>
+  </div>
+  <div class="filters-bar">
     <div class="search-wrap">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="text" id="searchInput" placeholder="Search room, batch, building…" oninput="filterAll()">
+      <svg class="si" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="r-search" placeholder="Search room, batch, building…" oninput="renderRooms()">
+    </div>
+    <select id="r-center" onchange="renderRooms()"><option value="">All Centers</option></select>
+    <select id="r-type" onchange="renderRooms()"><option value="">All Types</option><option>Weekday</option><option>Weekend</option><option>ICSE</option><option>Rankers</option><option>TTS</option></select>
+    <div style="display:flex;align-items:center;gap:6px;">
+      <span class="filter-label">Fill</span>
+      <div class="fill-chips">
+        <span class="chip ca" data-f="" onclick="setFill(this,'')">All</span>
+        <span class="chip" data-f="over" onclick="setFill(this,'over')">Overfilled</span>
+        <span class="chip" data-f="high" onclick="setFill(this,'high')">≥80%</span>
+        <span class="chip" data-f="med"  onclick="setFill(this,'med')">40–79%</span>
+        <span class="chip" data-f="low"  onclick="setFill(this,'low')">&lt;40%</span>
+        <span class="chip" data-f="empty" onclick="setFill(this,'empty')">Empty</span>
+      </div>
     </div>
   </div>
-  <div class="filter-group">
-    <span class="filter-label">Center</span>
-    <select id="centerFilter" onchange="filterAll()">
-      <option value="">All Centers</option>
-    </select>
-  </div>
-  <div class="filter-group">
-    <span class="filter-label">Type</span>
-    <select id="typeFilter" onchange="filterAll()">
-      <option value="">All Types</option>
-      <option>Weekday</option><option>Weekend</option>
-      <option>ICSE</option><option>Rankers</option><option>TTS</option>
-    </select>
-  </div>
-  <div class="filter-group">
-    <span class="filter-label">Fill</span>
-    <div class="fill-chips">
-      <span class="chip active-all" data-fill="" onclick="setFill(this,'')">All</span>
-      <span class="chip" data-fill="over"  onclick="setFill(this,'over')">Overfilled</span>
-      <span class="chip" data-fill="high"  onclick="setFill(this,'high')">≥80%</span>
-      <span class="chip" data-fill="med"   onclick="setFill(this,'med')">40–79%</span>
-      <span class="chip" data-fill="low"   onclick="setFill(this,'low')">&lt;40%</span>
-      <span class="chip" data-fill="empty" onclick="setFill(this,'empty')">Empty</span>
-    </div>
-  </div>
+  <main id="roomContent">
+    <div class="loader"><div class="spinner"></div><div class="loader-text">Fetching live data from Google Sheets…</div></div>
+  </main>
 </div>
 
-<!-- MAIN -->
-<main id="mainContent">
-  <div class="loader"><div class="spinner"></div><div class="loader-text">Fetching live data…</div></div>
-</main>
+<!-- PAGE 2: STUDENT LIST -->
+<div class="page" id="page-students">
+  <div class="stats-bar">
+    <div class="stat-card"><div class="stat-label">Total Students</div><div class="stat-value sv-ac" id="ss-total">—</div></div>
+    <div class="stat-card"><div class="stat-label">Centers</div><div class="stat-value sv-bl" id="ss-centers">—</div></div>
+    <div class="stat-card"><div class="stat-label">Batches</div><div class="stat-value sv-gr" id="ss-batches">—</div></div>
+    <div class="stat-card"><div class="stat-label">Showing</div><div class="stat-value sv-am" id="ss-showing">—</div></div>
+  </div>
+  <div class="filters-bar">
+    <div class="search-wrap">
+      <svg class="si" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="s-search" placeholder="Search name, regno, batch…" oninput="renderStudents()">
+    </div>
+    <select id="s-center" onchange="onCenterChange()"><option value="">All Centers</option></select>
+    <select id="s-batch"  onchange="renderStudents()"><option value="">All Batches</option></select>
+    <button class="dl-btn" onclick="downloadCSV()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download CSV
+    </button>
+  </div>
+  <div class="count-bar">
+    <span>Showing <strong id="ss-count">0</strong> students</span>
+    <span id="ss-info" style="color:var(--text3);font-size:11px;"></span>
+  </div>
+  <div style="overflow-x:auto;">
+    <table id="studentTable">
+      <thead><tr>
+        <th style="width:50px">#</th>
+        <th>Reg No</th>
+        <th>Student Name</th>
+        <th>Batch</th>
+        <th>Center</th>
+      </tr></thead>
+      <tbody id="studentBody">
+        <tr><td colspan="5" style="text-align:center;padding:60px;color:var(--text3);">Loading…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <script>
-const API_URL = 'https://script.google.com/macros/s/AKfycbyDGIparmyGmE-UhgZr5A7s1JldjwIE47NCAcEQX6oHAAB2k4yW6epPhRw2F_EA74hl/exec';
+const API='https://script.google.com/macros/s/AKfycbyDGIparmyGmE-UhgZr5A7s1JldjwIE47NCAcEQX6oHAAB2k4yW6epPhRw2F_EA74hl/exec';
+let roomData=[],studentData=[],activeFill='',exC={},exB={};
 
-let allData = [];
-let activeFill = '';
-let sortState = { key: 'pct', dir: 'desc' };
-let expandedCenters = {};
-let expandedBuildings = {};
+// ── TABS ─────────────────────────────────────────────
+function switchTab(t){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+t).classList.add('active');
+  document.getElementById('tab-'+t).classList.add('active');
+}
 
-// ── DATA LOADING ──────────────────────────────────────────────
-async function loadData() {
-  const btn = document.getElementById('refreshBtn');
+// ── LOAD ─────────────────────────────────────────────
+async function loadData(){
+  const btn=document.getElementById('refreshBtn');
   btn.classList.add('spinning');
-  document.getElementById('mainContent').innerHTML = '<div class="loader"><div class="spinner"></div><div class="loader-text">Fetching live data from Google Sheets…</div></div>';
-
-  try {
-    const res = await fetch(API_URL + '?t=' + Date.now());
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const json = await res.json();
+  document.getElementById('roomContent').innerHTML='<div class="loader"><div class="spinner"></div><div class="loader-text">Fetching live data from Google Sheets…</div></div>';
+  document.getElementById('studentBody').innerHTML='<tr><td colspan="5" style="text-align:center;padding:60px;color:var(--text3);">Loading…</td></tr>';
+  try{
+    const res=await fetch(API+'?t='+Date.now());
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const json=await res.json();
     processData(json);
-    const now = new Date();
-    document.getElementById('lastUpdated').textContent = 'Updated ' + now.toLocaleTimeString();
-    document.getElementById('headerSub').textContent = 'All Centers · Live from Google Sheets';
-  } catch(e) {
-    document.getElementById('mainContent').innerHTML = `
-      <div class="error-box">
-        <strong>⚠ Could not load live data</strong>
-        Failed to fetch from Google Apps Script: ${e.message}<br><br>
-        Make sure:<br>
-        • The deployment is set to <b>Execute as: Me</b> and <b>Who has access: Anyone</b><br>
-        • You have re-deployed after the latest script changes<br>
-        • CORS is not blocked by your browser (try opening the URL directly first)<br><br>
-        <button class="refresh-btn" onclick="loadData()" style="margin-top:8px">Try Again</button>
-      </div>`;
-    document.getElementById('headerSub').textContent = 'Data unavailable';
-  } finally {
-    btn.classList.remove('spinning');
-  }
+    const now=new Date();
+    document.getElementById('lastUpdated').textContent='Updated '+now.toLocaleTimeString();
+  }catch(e){
+    const err=`<div class="error-box"><strong>⚠ Could not load data</strong>${e.message}<br><br>Make sure the Apps Script deployment is set to <b>Execute as: Me</b> and <b>Who has access: Anyone</b>, then redeploy and try again.<br><br><button class="refresh-btn" style="margin-top:8px" onclick="loadData()">Try Again</button></div>`;
+    document.getElementById('roomContent').innerHTML=err;
+    document.getElementById('studentBody').innerHTML='<tr><td colspan="5" style="text-align:center;padding:32px;color:var(--red);">Failed to load data.</td></tr>';
+  }finally{btn.classList.remove('spinning');}
 }
 
-function processData(json) {
-  const dump = json.roomDump || [];
-  const batchCount = json.batchCount || {};
-
-  // Parse Room Dump (skip header row)
-  const rows = [];
-  for (let i = 1; i < dump.length; i++) {
-    const r = dump[i];
-    if (!r[0]) continue;
-    const batch = String(r[1] || '').trim();
-    const capacity = Number(r[9]) || 0;
-    // Use Final Student List count if available, else fallback to dump total_students
-    const students = batchCount[batch] !== undefined ? batchCount[batch] : Number(r[10]) || 0;
-    const pct = capacity > 0 ? students / capacity : 0;
-    rows.push({
-      center:   String(r[0]).trim(),
-      batch,
-      building: String(r[2]).trim(),
-      room:     String(r[3]).trim(),
-      shift:    String(r[4]).trim(),
-      type:     String(r[7]).trim(),
-      start:    String(r[8]).split('T')[0],
-      capacity, students, pct
-    });
+function processData(json){
+  // ── Rooms ──
+  const dump=json.roomDump||[];
+  const bc=json.batchCount||{};
+  const rooms=[];
+  for(let i=1;i<dump.length;i++){
+    const r=dump[i]; if(!r[0]) continue;
+    const batch=String(r[1]||'').trim();
+    const cap=Number(r[9])||0;
+    const stu=bc[batch]!==undefined?bc[batch]:Number(r[10])||0;
+    rooms.push({center:String(r[0]).trim(),batch,building:String(r[2]).trim(),room:String(r[3]).trim(),shift:String(r[4]).trim(),type:String(r[7]).trim(),start:String(r[8]).split('T')[0],capacity:cap,students:stu,pct:cap>0?stu/cap:0});
   }
+  roomData=rooms;
 
-  allData = rows;
-
-  // Populate center filter
-  const centers = [...new Set(rows.map(r => r.center))].sort();
-  const sel = document.getElementById('centerFilter');
-  sel.innerHTML = '<option value="">All Centers</option>' +
-    centers.map(c => `<option value="${esc(c)}">${c}</option>`).join('');
-
-  // Save last-fetched time
-  if (json.lastUpdated) {
-    const d = new Date(json.lastUpdated);
-    document.getElementById('lastUpdated').textContent = 'Sheet updated ' + d.toLocaleString();
-  }
-
-  filterAll();
-}
-
-// ── FILTERS ──────────────────────────────────────────────────
-function setFill(el, val) {
-  activeFill = val;
-  document.querySelectorAll('.chip').forEach(c => {
-    const f = c.dataset.fill;
-    c.className = 'chip';
-    if (f === val) {
-      const map = {'':'active-all','over':'active-over','high':'active-high','med':'active-med','low':'active-low','empty':'active-empty'};
-      c.classList.add(map[f] || 'active-all');
+  // ── Students ──
+  const sl=json.studentList||[];
+  const studs=[];
+  if(sl.length>1){
+    const hdr=sl[0].map(h=>String(h).toLowerCase().trim());
+    const ci={regno:hdr.findIndex(h=>h==='regno'||h.includes('reg')),batch:hdr.findIndex(h=>h==='batch'),name:hdr.findIndex(h=>h.includes('name')),center:hdr.findIndex(h=>h==='center'||h.includes('center'))};
+    for(let i=1;i<sl.length;i++){
+      const row=sl[i];
+      const regno=ci.regno>=0?String(row[ci.regno]||'').trim():'';
+      const batch=ci.batch>=0?String(row[ci.batch]||'').trim():'';
+      const name=ci.name>=0?String(row[ci.name]||'').trim():'';
+      const center=ci.center>=0?String(row[ci.center]||'').trim():'';
+      if(!regno&&!name&&!batch) continue;
+      studs.push({regno,batch,name,center});
     }
-  });
-  filterAll();
+  }
+  studentData=studs;
+
+  // ── Populate selects ──
+  const rCtrs=[...new Set(rooms.map(r=>r.center))].sort();
+  const sCtrs=[...new Set(studs.map(s=>s.center).filter(Boolean))].sort();
+  const sBatches=[...new Set(studs.map(s=>s.batch).filter(Boolean))].sort();
+  pop('r-center',rCtrs,'All Centers');
+  pop('s-center',sCtrs,'All Centers');
+  pop('s-batch',sBatches,'All Batches');
+
+  // ── Student header stats ──
+  document.getElementById('ss-total').textContent=studs.length.toLocaleString();
+  document.getElementById('ss-centers').textContent=sCtrs.length;
+  document.getElementById('ss-batches').textContent=sBatches.length;
+
+  renderRooms();
+  renderStudents();
 }
 
-function applyFilters() {
-  const q       = document.getElementById('searchInput').value.toLowerCase().trim();
-  const center  = document.getElementById('centerFilter').value;
-  const type    = document.getElementById('typeFilter').value;
-  const fill    = activeFill;
+function pop(id,opts,placeholder){
+  const sel=document.getElementById(id);
+  sel.innerHTML=`<option value="">${placeholder}</option>`+opts.map(o=>`<option value="${xe(o)}">${o}</option>`).join('');
+}
 
-  return allData.filter(r => {
-    if (center && r.center !== center) return false;
-    if (type   && r.type   !== type)   return false;
-    if (fill === 'over'  && r.pct <= 1)          return false;
-    if (fill === 'high'  && (r.pct < 0.8 || r.pct > 1)) return false;
-    if (fill === 'med'   && (r.pct < 0.4 || r.pct >= 0.8)) return false;
-    if (fill === 'low'   && (r.pct <= 0 || r.pct >= 0.4)) return false;
-    if (fill === 'empty' && r.pct !== 0) return false;
-    if (q) {
-      const hay = `${r.center} ${r.building} ${r.room} ${r.batch} ${r.type} ${r.shift}`.toLowerCase();
-      if (!hay.includes(q)) return false;
-    }
+// ── ROOM RENDER ───────────────────────────────────────
+function setFill(el,val){
+  activeFill=val;
+  const map={'':'ca','over':'co','high':'ch','med':'cm','low':'cl','empty':'ce'};
+  document.querySelectorAll('.fill-chips .chip').forEach(c=>{c.className='chip'+(c.dataset.f===val?' '+map[val]:'');});
+  renderRooms();
+}
+
+function filterRooms(){
+  const q=document.getElementById('r-search').value.toLowerCase().trim();
+  const center=document.getElementById('r-center').value;
+  const type=document.getElementById('r-type').value;
+  return roomData.filter(r=>{
+    if(center&&r.center!==center) return false;
+    if(type&&r.type!==type) return false;
+    if(activeFill==='over'&&r.pct<=1) return false;
+    if(activeFill==='high'&&(r.pct<0.8||r.pct>1)) return false;
+    if(activeFill==='med'&&(r.pct<0.4||r.pct>=0.8)) return false;
+    if(activeFill==='low'&&(r.pct<=0||r.pct>=0.4)) return false;
+    if(activeFill==='empty'&&r.pct!==0) return false;
+    if(q&&!`${r.center} ${r.building} ${r.room} ${r.batch} ${r.type} ${r.shift}`.toLowerCase().includes(q)) return false;
     return true;
   });
 }
 
-function filterAll() {
-  const filtered = applyFilters();
-  renderStats(filtered);
-  renderContent(filtered);
-}
+function renderRooms(){
+  const filtered=filterRooms();
+  const cap=filtered.reduce((s,r)=>s+r.capacity,0);
+  const stu=filtered.reduce((s,r)=>s+r.students,0);
+  const over=filtered.filter(r=>r.pct>1).length;
+  const emp=filtered.filter(r=>r.pct===0).length;
+  const pct=cap>0?stu/cap:0;
+  document.getElementById('s-rooms').textContent=filtered.length.toLocaleString();
+  document.getElementById('s-centers').textContent=new Set(filtered.map(r=>r.center)).size;
+  document.getElementById('s-cap').textContent=cap.toLocaleString();
+  document.getElementById('s-stu').textContent=stu.toLocaleString();
+  document.getElementById('s-fill').textContent=Math.round(pct*100)+'%';
+  document.getElementById('s-over').textContent=over;
+  document.getElementById('s-empty').textContent=emp;
 
-// ── STATS ─────────────────────────────────────────────────────
-function renderStats(rows) {
-  const cap  = rows.reduce((s,r)=>s+r.capacity,0);
-  const stu  = rows.reduce((s,r)=>s+r.students,0);
-  const over = rows.filter(r=>r.pct>1).length;
-  const emp  = rows.filter(r=>r.pct===0).length;
-  const pct  = cap>0 ? stu/cap : 0;
-  const ctrs = new Set(rows.map(r=>r.center)).size;
+  const main=document.getElementById('roomContent');
+  if(!filtered.length){main.innerHTML='<div style="text-align:center;padding:60px;color:var(--text3);">No rooms match your filters.</div>';return;}
 
-  document.getElementById('s-rooms').textContent   = rows.length.toLocaleString();
-  document.getElementById('s-centers').textContent = ctrs;
-  document.getElementById('s-cap').textContent     = cap.toLocaleString();
-  document.getElementById('s-stu').textContent     = stu.toLocaleString();
-  document.getElementById('s-fill').textContent    = Math.round(pct*100)+'%';
-  document.getElementById('s-over').textContent    = over;
-  document.getElementById('s-empty').textContent   = emp;
-}
-
-// ── RENDER ────────────────────────────────────────────────────
-function groupBy(arr, key) {
-  const m = {};
-  arr.forEach(r=>{ (m[r[key]]=m[r[key]]||[]).push(r); });
-  return m;
-}
-
-function renderContent(filtered) {
-  const main = document.getElementById('mainContent');
-  if (!filtered.length) { main.innerHTML='<div class="empty-state">No rooms match your filters.</div>'; return; }
-
-  const byCenterMap = groupBy(filtered,'center');
-  const centers = Object.keys(byCenterMap).sort();
-  let html = '';
-
-  centers.forEach(center => {
-    const cRows = byCenterMap[center];
-    const totalCap = cRows.reduce((s,r)=>s+r.capacity,0);
-    const totalStu = cRows.reduce((s,r)=>s+r.students,0);
-    const cPct = totalCap>0 ? totalStu/totalCap : 0;
-    const over = cRows.filter(r=>r.pct>1).length;
-    const cId = 'c_'+sanitize(center);
-    const isOpen = expandedCenters[center] !== false;
-    const fc = fillColor(cPct);
-
-    const byBuilding = groupBy(cRows,'building');
-    const buildings  = Object.keys(byBuilding).sort();
-
-    html += `<div class="center-block">
-      <div class="center-header${isOpen?' is-open':''}" onclick="toggleC('${center}')">
-        <svg class="chevron-icon${isOpen?' open':''}" id="cc_${cId}" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+  const byC=gb(filtered,'center');
+  const centers=Object.keys(byC).sort();
+  let html='';
+  centers.forEach(center=>{
+    const cR=byC[center];
+    const cCap=cR.reduce((s,r)=>s+r.capacity,0);
+    const cStu=cR.reduce((s,r)=>s+r.students,0);
+    const cPct=cCap>0?cStu/cCap:0;
+    const cOv=cR.filter(r=>r.pct>1).length;
+    const cId='c_'+sn(center);
+    const isOpen=exC[center]!==false;
+    const fc=fco(cPct);
+    const byB=gb(cR,'building');
+    const blds=Object.keys(byB).sort();
+    html+=`<div class="center-block">
+      <div class="center-header${isOpen?' open':''}" onclick="togC('${xe2(center)}')">
+        <svg class="chev${isOpen?' open':''}" id="cc_${cId}" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
         <div class="center-name">${center}</div>
-        <div class="center-chips">
-          <span class="mini-pill mp-rooms">${cRows.length} rooms</span>
-          <span style="font-size:11px;color:var(--text3)">${totalStu.toLocaleString()} / ${totalCap.toLocaleString()}</span>
-          ${over>0?`<span class="over-tag">${over} OVER</span>`:''}
+        <div class="center-pills">
+          <span class="mpill">${cR.length} rooms</span>
+          <span style="font-size:11px;color:var(--text3)">${cStu.toLocaleString()} / ${cCap.toLocaleString()}</span>
+          ${cOv>0?`<span class="over-tag">${cOv} OVER</span>`:''}
         </div>
-        <div class="fill-num" style="color:${fc.txt}">${Math.round(cPct*100)}%</div>
+        <div class="fill-num" style="color:${fc.t}">${Math.round(cPct*100)}%</div>
       </div>
       <div id="cb_${cId}" ${isOpen?'':'class="collapsed"'}>`;
-
-    buildings.forEach(building => {
-      const bRows = byBuilding[building];
-      const bCap  = bRows.reduce((s,r)=>s+r.capacity,0);
-      const bStu  = bRows.reduce((s,r)=>s+r.students,0);
-      const bPct  = bCap>0?bStu/bCap:0;
-      const bId   = cId+'_'+sanitize(building);
-      const bOpen = expandedBuildings[bId] !== false;
-      const bfc   = fillColor(bPct);
-
-      // Sort by pct descending
-      const sortedRows = [...bRows].sort((a,b)=>b.pct-a.pct);
-
-      html += `<div class="building-block">
-        <div class="building-header" onclick="toggleB('${bId}')">
-          <div class="building-dot" style="background:${bfc.dot}"></div>
-          <div class="building-name">${building}</div>
-          <div class="building-meta">
-            <span>${bRows.length} rooms</span>
+    blds.forEach(bld=>{
+      const bR=byB[bld];
+      const bCap=bR.reduce((s,r)=>s+r.capacity,0);
+      const bStu=bR.reduce((s,r)=>s+r.students,0);
+      const bPct=bCap>0?bStu/bCap:0;
+      const bId=cId+'_'+sn(bld);
+      const bOpen=exB[bId]!==false;
+      const bfc=fco(bPct);
+      const sorted=[...bR].sort((a,b)=>b.pct-a.pct);
+      html+=`<div class="building-block">
+        <div class="building-header" onclick="togB('${xe2(bId)}')">
+          <div class="bldot" style="background:${bfc.d}"></div>
+          <div class="blname">${bld}</div>
+          <div class="blmeta">
+            <span>${bR.length} rooms</span>
             <span>${bStu} / ${bCap}</span>
-            <span style="color:${bfc.txt};font-weight:600">${Math.round(bPct*100)}%</span>
+            <span style="color:${bfc.t};font-weight:600">${Math.round(bPct*100)}%</span>
           </div>
-          <svg class="bchev${bOpen?' open':''}" id="bc_${bId}" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          <svg class="bchev${bOpen?' open':''}" id="bc_${bId}" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
         </div>
         <div id="bb_${bId}" ${bOpen?'':'class="collapsed"'}>
-          <div class="table-wrap">
-            <table>
-              <thead><tr>
-                <th style="width:28px">#</th>
-                <th>Room</th>
-                <th>Batch Code</th>
-                <th>Shift</th>
-                <th>Type</th>
-                <th>Start</th>
-                <th class="num">Cap.</th>
-                <th class="num">Students</th>
-                <th style="min-width:160px">Fill Rate</th>
-              </tr></thead>
-              <tbody>`;
-
-      sortedRows.forEach((r,i) => {
-        const rfc = fillColor(r.pct);
-        const barW = Math.min(r.pct,1)*100;
-        const isOver = r.pct>1;
-        const startFmt = r.start.replace(/^(\d{4})-(\d{2})-(\d{2})$/,'$3/$2/$1');
-        html += `<tr>
-          <td><span class="rank-badge">${i+1}</span></td>
-          <td class="room-name">${r.room}</td>
-          <td class="batch-code">${r.batch}</td>
-          <td>${shiftBadge(r.shift)}</td>
-          <td>${typeBadge(r.type)}</td>
-          <td class="muted">${startFmt}</td>
-          <td class="num muted">${r.capacity}</td>
-          <td class="num" style="font-weight:600;color:${rfc.txt}">${r.students}${isOver?'<span class="over-tag" style="margin-left:5px">OVER</span>':''}</td>
-          <td>
-            <div class="fill-wrap">
-              <div class="bar-bg"><div class="bar-fg ${rfc.bar}" style="width:${barW}%"></div></div>
-              <span class="fp" style="color:${rfc.txt}">${Math.round(r.pct*100)}%</span>
-            </div>
-          </td>
+          <div class="table-wrap"><table>
+            <thead><tr><th style="width:40px">#</th><th>Room</th><th>Batch Code</th><th>Shift</th><th>Type</th><th>Start Date</th><th class="num">Cap.</th><th class="num">Students</th><th style="min-width:155px">Fill Rate</th></tr></thead>
+            <tbody>`;
+      sorted.forEach((r,i)=>{
+        const rfc=fco(r.pct);
+        const bw=Math.min(r.pct,1)*100;
+        const dt=r.start.replace(/^(\d{4})-(\d{2})-(\d{2})$/,'$3/$2/$1');
+        html+=`<tr>
+          <td><span class="rank">${i+1}</span></td>
+          <td class="mono" style="color:var(--text);font-weight:500">${r.room}</td>
+          <td class="mono dim">${r.batch}</td>
+          <td>${shBadge(r.shift)}</td>
+          <td>${tyBadge(r.type)}</td>
+          <td class="dim">${dt}</td>
+          <td class="num dim">${r.capacity}</td>
+          <td class="num" style="font-weight:700;color:${rfc.t}">${r.students}${r.pct>1?'<span class="over-tag" style="margin-left:5px">OVER</span>':''}</td>
+          <td><div class="fill-wrap"><div class="bar-bg"><div class="bar-fg ${rfc.b}" style="width:${bw}%"></div></div><span class="fp" style="color:${rfc.t}">${Math.round(r.pct*100)}%</span></div></td>
         </tr>`;
       });
-
-      html += `</tbody></table></div></div></div>`;
+      html+=`</tbody></table></div></div></div>`;
     });
-
-    html += `</div></div>`;
+    html+=`</div></div>`;
   });
-
-  main.innerHTML = html;
+  main.innerHTML=html;
 }
 
-// ── HELPERS ───────────────────────────────────────────────────
-function sanitize(s) { return s.replace(/[^a-z0-9]/gi,'_'); }
-function esc(s) { return s.replace(/"/g,'&quot;'); }
-
-function fillColor(p) {
-  if (p>1)    return { bar:'c-red',   txt:'var(--red)',   dot:'var(--red)' };
-  if (p>=0.8) return { bar:'c-green', txt:'var(--green)', dot:'var(--green)' };
-  if (p>=0.4) return { bar:'c-amber', txt:'var(--amber)', dot:'var(--amber)' };
-  if (p>0)    return { bar:'c-blue',  txt:'var(--blue)',  dot:'var(--blue)' };
-  return              { bar:'c-gray',  txt:'var(--text3)', dot:'var(--text3)' };
+// ── STUDENT RENDER ────────────────────────────────────
+function onCenterChange(){
+  // Re-populate batch filter based on selected center
+  const center=document.getElementById('s-center').value;
+  const batches=[...new Set(studentData.filter(s=>!center||s.center===center).map(s=>s.batch).filter(Boolean))].sort();
+  pop('s-batch',batches,'All Batches');
+  renderStudents();
 }
 
-function shiftBadge(s) {
-  const m={Morning:'b-morning',Evening:'b-evening',Afternoon:'b-afternoon',Any:'b-any'};
-  return `<span class="badge ${m[s]||'b-any'}">${s}</span>`;
-}
-function typeBadge(t) {
-  const m={Weekday:'b-weekday',Weekend:'b-weekend',ICSE:'b-icse',Rankers:'b-rankers',TTS:'b-tts'};
-  return `<span class="badge ${m[t]||'b-other'}">${t}</span>`;
-}
-
-function toggleC(center) {
-  const cId = 'c_'+sanitize(center);
-  const body = document.getElementById('cb_'+cId);
-  const chev = document.getElementById('cc_'+cId);
-  const hdr  = chev.closest('.center-header');
-  const isOpen = !body.classList.contains('collapsed');
-  body.classList.toggle('collapsed', isOpen);
-  chev.classList.toggle('open', !isOpen);
-  hdr.classList.toggle('is-open', !isOpen);
-  expandedCenters[center] = !isOpen;
+function filterStudents(){
+  const q=document.getElementById('s-search').value.toLowerCase().trim();
+  const center=document.getElementById('s-center').value;
+  const batch=document.getElementById('s-batch').value;
+  return studentData.filter(s=>{
+    if(center&&s.center!==center) return false;
+    if(batch&&s.batch!==batch) return false;
+    if(q&&!`${s.regno} ${s.name} ${s.batch} ${s.center}`.toLowerCase().includes(q)) return false;
+    return true;
+  });
 }
 
-function toggleB(bId) {
-  const body = document.getElementById('bb_'+bId);
-  const chev = document.getElementById('bc_'+bId);
-  const isOpen = !body.classList.contains('collapsed');
-  body.classList.toggle('collapsed', isOpen);
-  chev.classList.toggle('open', !isOpen);
-  expandedBuildings[bId] = !isOpen;
+function renderStudents(){
+  const filtered=filterStudents();
+  document.getElementById('ss-showing').textContent=filtered.length.toLocaleString();
+  document.getElementById('ss-count').textContent=filtered.length.toLocaleString();
+  const parts=[];
+  const c=document.getElementById('s-center').value;
+  const b=document.getElementById('s-batch').value;
+  const q=document.getElementById('s-search').value.trim();
+  if(c) parts.push('Center: '+c);
+  if(b) parts.push('Batch: '+b);
+  if(q) parts.push('Search: "'+q+'"');
+  document.getElementById('ss-info').textContent=parts.length?'· '+parts.join(' · '):'All students';
+  const tbody=document.getElementById('studentBody');
+  if(!filtered.length){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:60px;color:var(--text3);">No students match your filters.</td></tr>';return;}
+  const show=filtered.slice(0,1500);
+  let html='';
+  show.forEach((s,i)=>{
+    html+=`<tr>
+      <td class="dim">${i+1}</td>
+      <td class="mono" style="color:var(--accent2);font-weight:500">${s.regno||'—'}</td>
+      <td style="font-weight:500">${s.name||'—'}</td>
+      <td><span class="badge bo" style="font-family:var(--mono);font-size:10px">${s.batch||'—'}</span></td>
+      <td class="dim">${s.center||'—'}</td>
+    </tr>`;
+  });
+  if(filtered.length>1500) html+=`<tr><td colspan="5" style="text-align:center;padding:14px;color:var(--text3);font-size:12px;">Showing first 1,500 of ${filtered.length.toLocaleString()} — narrow your filters or download CSV for full list.</td></tr>`;
+  tbody.innerHTML=html;
 }
 
-// ── BOOT ─────────────────────────────────────────────────────
+// ── CSV DOWNLOAD ──────────────────────────────────────
+function downloadCSV(){
+  const filtered=filterStudents();
+  if(!filtered.length){alert('No data to download.');return;}
+  const rows=[['#','Regno','Student Name','Batch','Center']];
+  filtered.forEach((s,i)=>rows.push([i+1,s.regno,s.name,s.batch,s.center]));
+  const csv=rows.map(r=>r.map(v=>`"${String(v===null||v===undefined?'':v).replace(/"/g,'""')}"`).join(',')).join('\r\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  const c=document.getElementById('s-center').value||'All';
+  const b=document.getElementById('s-batch').value||'All';
+  const dt=new Date().toISOString().slice(0,10);
+  a.href=url; a.download=`students_${c}_${b}_${dt}.csv`.replace(/[\s/\\:*?"<>|]/g,'_');
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ── TOGGLE ────────────────────────────────────────────
+function togC(center){
+  const cId='c_'+sn(center);
+  const body=document.getElementById('cb_'+cId);
+  const chev=document.getElementById('cc_'+cId);
+  const hdr=chev.closest('.center-header');
+  const isOpen=!body.classList.contains('collapsed');
+  body.classList.toggle('collapsed',isOpen);
+  chev.classList.toggle('open',!isOpen);
+  hdr.classList.toggle('open',!isOpen);
+  exC[center]=!isOpen;
+}
+function togB(bId){
+  const body=document.getElementById('bb_'+bId);
+  const chev=document.getElementById('bc_'+bId);
+  const isOpen=!body.classList.contains('collapsed');
+  body.classList.toggle('collapsed',isOpen);
+  chev.classList.toggle('open',!isOpen);
+  exB[bId]=!isOpen;
+}
+
+// ── UTILS ─────────────────────────────────────────────
+function gb(arr,key){const m={};arr.forEach(r=>{(m[r[key]]=m[r[key]]||[]).push(r);});return m;}
+function sn(s){return s.replace(/[^a-z0-9]/gi,'_');}
+function xe(s){return String(s).replace(/"/g,'&quot;');}
+function xe2(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
+function fco(p){
+  if(p>1)   return{b:'br2',t:'var(--red)',  d:'var(--red)'};
+  if(p>=0.8)return{b:'bg', t:'var(--green)',d:'var(--green)'};
+  if(p>=0.4)return{b:'ba2',t:'var(--amber)',d:'var(--amber)'};
+  if(p>0)   return{b:'bb2',t:'var(--blue)', d:'var(--blue)'};
+  return         {b:'bgr',t:'var(--text3)',d:'var(--text3)'};
+}
+function shBadge(s){const m={Morning:'bm',Evening:'be',Afternoon:'bn',Any:'ba'};return`<span class="badge ${m[s]||'ba'}">${s}</span>`;}
+function tyBadge(t){const m={Weekday:'bwd',Weekend:'bwe',ICSE:'bi',Rankers:'br',TTS:'bt'};return`<span class="badge ${m[t]||'bo'}">${t}</span>`;}
+
+// ── BOOT ──────────────────────────────────────────────
 loadData();
 </script>
 </body>
