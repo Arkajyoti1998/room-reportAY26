@@ -21,7 +21,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:13px;line-height:1.6;min-height:100vh;}
 
-/* NAV */
+/* ── NAV ── */
 .nav{background:#10122088;backdrop-filter:blur(16px);border-bottom:1px solid var(--border2);padding:0 28px;display:flex;align-items:center;position:sticky;top:0;z-index:300;height:52px;}
 .nav-logo{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#c026d3);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;box-shadow:0 0 14px rgba(108,99,255,0.5);margin-right:20px;flex-shrink:0;}
 .nav-tab{display:flex;align-items:center;gap:7px;padding:0 18px;height:52px;font-size:13px;font-weight:500;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;user-select:none;white-space:nowrap;}
@@ -36,10 +36,10 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:13
 .refresh-btn.spinning svg{animation:spin 0.8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 
-/* PAGES */
+/* ── PAGES ── */
 .page{display:none;}.page.active{display:block;}
 
-/* STATS BAR */
+/* ── STATS BAR ── */
 .stats-bar{background:linear-gradient(180deg,#13152a 0%,var(--bg) 100%);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;gap:10px;flex-wrap:wrap;}
 .stat-card{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r);padding:12px 18px;min-width:110px;flex-shrink:0;transition:border-color 0.2s,transform 0.2s;}
 .stat-card:hover{border-color:var(--border3);transform:translateY(-1px);}
@@ -48,7 +48,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:13
 .stat-sub{font-size:10px;color:var(--text3);margin-top:4px;}
 .sv-ac{color:var(--accent2);}.sv-gr{color:var(--green);}.sv-am{color:var(--amber);}.sv-rd{color:var(--red);}.sv-bl{color:var(--blue);}
 
-/* FILTERS */
+/* ── FILTERS ── */
 .filters-bar{background:var(--bg);border-bottom:1px solid var(--border);padding:10px 28px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
 .filter-label{font-size:10px;color:var(--text3);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;white-space:nowrap;}
 .search-wrap{position:relative;flex:1;min-width:180px;max-width:280px;}
@@ -69,10 +69,8 @@ input[type=text]:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 
 .dl-btn{display:flex;align-items:center;gap:6px;background:var(--green-bg);border:1px solid rgba(16,217,160,0.3);color:var(--green);padding:7px 14px;border-radius:var(--r-sm);font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:var(--font);white-space:nowrap;}
 .dl-btn:hover{background:rgba(16,217,160,0.2);transform:translateY(-1px);}
 
-/* MAIN */
+/* ── MAIN ── */
 main{padding:20px 28px 60px;}
-
-/* CENTER / BUILDING */
 .center-block{margin-bottom:14px;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);background:var(--bg3);transition:border-color 0.2s;}
 .center-block:hover{border-color:var(--border2);}
 .center-header{display:flex;align-items:center;gap:12px;padding:13px 20px;cursor:pointer;user-select:none;background:linear-gradient(90deg,var(--bg4) 0%,var(--bg3) 100%);border-bottom:1px solid transparent;transition:all 0.2s;position:relative;}
@@ -95,7 +93,7 @@ main{padding:20px 28px 60px;}
 .bchev{color:var(--text3);transition:transform 0.2s;}
 .bchev.open{transform:rotate(180deg);}
 
-/* TABLE */
+/* ── TABLE ── */
 .table-wrap{overflow-x:auto;}
 table{width:100%;border-collapse:collapse;}
 thead th{background:var(--bg4);padding:8px 14px;text-align:left;font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.6px;border-bottom:1px solid var(--border2);white-space:nowrap;}
@@ -109,7 +107,7 @@ td.mono{font-family:var(--mono);font-size:11px;}
 td.dim{color:var(--text2);font-size:12px;}
 .rank{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--bg5);color:var(--text3);font-size:10px;font-weight:600;}
 
-/* BADGES */
+/* ── BADGES ── */
 .badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:600;white-space:nowrap;}
 .bm{background:rgba(245,166,35,0.12);color:#fbbf24;border:1px solid rgba(245,166,35,0.2);}
 .be{background:rgba(167,139,250,0.12);color:#a78bfa;border:1px solid rgba(167,139,250,0.2);}
@@ -122,7 +120,7 @@ td.dim{color:var(--text2);font-size:12px;}
 .bt{background:rgba(232,121,249,0.10);color:#e879f9;border:1px solid rgba(232,121,249,0.2);}
 .bo{background:var(--bg5);color:var(--text2);border:1px solid var(--border2);}
 
-/* FILL BAR */
+/* ── FILL BAR ── */
 .fill-wrap{display:flex;align-items:center;gap:8px;min-width:150px;}
 .bar-bg{flex:1;height:4px;background:var(--bg5);border-radius:2px;overflow:visible;position:relative;min-width:60px;}
 .bar-fg{height:100%;border-radius:2px;transition:width 0.4s ease;}
@@ -131,18 +129,17 @@ td.dim{color:var(--text2);font-size:12px;}
 .bg2{background:var(--green);}.ba2{background:var(--amber);}.br2{background:var(--red);}.bb2{background:var(--blue);}.bgr{background:var(--text3);}
 .tg{color:var(--green);}.ta{color:var(--amber);}.tr2{color:var(--red);}.tb2{color:var(--blue);}.tgr{color:var(--text3);}
 
-/* COUNT BAR */
+/* ── COUNT BAR ── */
 .count-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 28px;background:var(--bg3);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;}
 .count-bar span{font-size:12px;color:var(--text2);}
 .count-bar strong{color:var(--text);}
 
-/* LOADER / ERROR */
+/* ── LOADER / ERROR ── */
 .loader{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:16px;}
 .spinner{width:36px;height:36px;border:3px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;}
 .loader-text{font-size:13px;color:var(--text3);}
 .error-box{margin:28px;padding:22px;background:var(--red-bg);border:1px solid rgba(255,77,109,0.2);border-radius:var(--r);color:var(--red);font-size:13px;line-height:1.8;}
 .error-box strong{display:block;font-size:15px;margin-bottom:6px;}
-.warn-box{margin:20px 28px;padding:14px 18px;background:var(--amber-bg);border:1px solid rgba(245,166,35,0.25);border-radius:var(--r);color:var(--amber);font-size:12px;line-height:1.7;}
 .collapsed{display:none!important;}
 ::-webkit-scrollbar{width:5px;height:5px;}
 ::-webkit-scrollbar-track{background:transparent;}
@@ -192,15 +189,18 @@ td.dim{color:var(--text2);font-size:12px;}
       <input type="text" id="r-search" placeholder="Search room, batch, building…" oninput="renderRooms()">
     </div>
     <select id="r-center" onchange="renderRooms()"><option value="">All Centers</option></select>
-    <select id="r-type" onchange="renderRooms()"><option value="">All Types</option><option>Weekday</option><option>Weekend</option><option>ICSE</option><option>Rankers</option><option>TTS</option></select>
+    <select id="r-type" onchange="renderRooms()">
+      <option value="">All Types</option>
+      <option>Weekday</option><option>Weekend</option><option>ICSE</option><option>Rankers</option><option>TTS</option>
+    </select>
     <div style="display:flex;align-items:center;gap:6px;">
       <span class="filter-label">Fill</span>
       <div class="fill-chips">
         <span class="chip ca" data-f="" onclick="setFill(this,'')">All</span>
-        <span class="chip" data-f="over" onclick="setFill(this,'over')">Overfilled</span>
-        <span class="chip" data-f="high" onclick="setFill(this,'high')">≥80%</span>
-        <span class="chip" data-f="med"  onclick="setFill(this,'med')">40–79%</span>
-        <span class="chip" data-f="low"  onclick="setFill(this,'low')">&lt;40%</span>
+        <span class="chip" data-f="over"  onclick="setFill(this,'over')">Overfilled</span>
+        <span class="chip" data-f="high"  onclick="setFill(this,'high')">≥80%</span>
+        <span class="chip" data-f="med"   onclick="setFill(this,'med')">40–79%</span>
+        <span class="chip" data-f="low"   onclick="setFill(this,'low')">&lt;40%</span>
         <span class="chip" data-f="empty" onclick="setFill(this,'empty')">Empty</span>
       </div>
     </div>
@@ -230,7 +230,6 @@ td.dim{color:var(--text2);font-size:12px;}
       Download CSV
     </button>
   </div>
-  <div id="studentWarn"></div>
   <div class="count-bar">
     <span>Showing <strong id="ss-count">0</strong> students</span>
     <span id="ss-info" style="color:var(--text3);font-size:11px;"></span>
@@ -253,8 +252,9 @@ td.dim{color:var(--text2);font-size:12px;}
 
 <script>
 const API='https://script.google.com/macros/s/AKfycbyDGIparmyGmE-UhgZr5A7s1JldjwIE47NCAcEQX6oHAAB2k4yW6epPhRw2F_EA74hl/exec';
-// Column indices for Final Student List: regno=0, batch=1, student_name=2, center=3
-const COL={regno:0,batch:1,name:2,center:3};
+
+// Compact student array indices: [regno, batch, name, center]
+const SI={regno:0,batch:1,name:2,center:3};
 
 let roomData=[],studentData=[],activeFill='',exC={},exB={};
 
@@ -281,16 +281,20 @@ async function loadData(){
       document.getElementById('lastUpdated').textContent='Updated '+new Date(json.lastUpdated).toLocaleTimeString();
     }
   }catch(e){
-    const err=`<div class="error-box"><strong>⚠ Could not load data</strong>${e.message}<br><br>
-    Make sure Apps Script is deployed with <b>Execute as: Me</b> and <b>Who has access: Anyone</b>.<br><br>
-    <button class="refresh-btn" style="margin-top:8px" onclick="loadData()">Try Again</button></div>`;
-    document.getElementById('roomContent').innerHTML=err;
+    const errHtml=`<div class="error-box"><strong>⚠ Could not load data</strong>
+      ${e.message}<br><br>
+      Ensure the Apps Script is deployed with <b>Execute as: Me</b> and <b>Who has access: Anyone</b>.
+      <br><br><button class="refresh-btn" style="margin-top:8px" onclick="loadData()">Try Again</button></div>`;
+    document.getElementById('roomContent').innerHTML=errHtml;
     document.getElementById('studentBody').innerHTML='<tr><td colspan="5" style="text-align:center;padding:32px;color:var(--red);">Failed to load.</td></tr>';
-  }finally{btn.classList.remove('spinning');}
+  }finally{
+    btn.classList.remove('spinning');
+  }
 }
 
+// ── PROCESS ───────────────────────────────────────────
 function processData(json){
-  // ── ROOMS ──
+  // ── Rooms ──
   const dump=json.roomDump||[];
   const bc=json.batchCount||{};
   const rooms=[];
@@ -298,71 +302,37 @@ function processData(json){
     const r=dump[i]; if(!r[0]) continue;
     const batch=String(r[1]||'').trim();
     const cap=Number(r[9])||0;
-    const stu=bc[batch]!==undefined?bc[batch]:Number(r[10])||0;
-    rooms.push({center:String(r[0]).trim(),batch,building:String(r[2]).trim(),room:String(r[3]).trim(),shift:String(r[4]).trim(),type:String(r[7]).trim(),start:String(r[8]).split('T')[0],capacity:cap,students:stu,pct:cap>0?stu/cap:0});
+    // Use batchCount (from Final Student List) as source of truth; fallback to dump col
+    const stu=bc[batch]!==undefined ? bc[batch] : Number(r[10])||0;
+    rooms.push({
+      center:String(r[0]).trim(), batch,
+      building:String(r[2]).trim(), room:String(r[3]).trim(),
+      shift:String(r[4]).trim(), type:String(r[7]).trim(),
+      start:String(r[8]).split('T')[0],
+      capacity:cap, students:stu, pct:cap>0?stu/cap:0
+    });
   }
   roomData=rooms;
 
-  // ── STUDENTS ──
-  // Columns are fixed: regno(0), batch(1), student_name(2), center(3)
-  const sl=json.studentList||[];
-  const studs=[];
-  const warn=document.getElementById('studentWarn');
+  // ── Students ──
+  // json.students is a compact array: each row = [regno, batch, name, center]
+  const raw=json.students||[];
+  studentData=raw; // keep as-is, access via SI indices
 
-  if(!sl || sl.length<=1){
-    // studentList missing or empty — show warning, generate placeholder from batchCount
-    warn.innerHTML=`<div class="warn-box">⚠ <b>Student List not yet available from the sheet.</b> Please redeploy the Apps Script with the updated code that includes <code>studentList</code> in the response. Until then, only batch counts are shown.</div>`;
-    // Build placeholder rows from batchCount + room data for center mapping
-    const batchCenter={};
-    rooms.forEach(r=>{if(r.batch) batchCenter[r.batch]=r.center;});
-    Object.entries(bc).forEach(([batch,count])=>{
-      for(let i=0;i<count;i++){
-        studs.push({regno:'',batch,name:'(Student '+(i+1)+')',center:batchCenter[batch]||''});
-      }
-    });
-  } else {
-    warn.innerHTML='';
-    // Skip header row (row 0), parse from row 1 onwards
-    // Detect column positions dynamically from header
-    const hdr=sl[0].map(h=>String(h).toLowerCase().trim());
-    const ci={
-      regno:  hdr.findIndex(h=>h==='regno'||h.includes('reg no')||h.includes('reg_no')),
-      batch:  hdr.findIndex(h=>h==='batch'),
-      name:   hdr.findIndex(h=>h==='student_name'||h==='student name'||h.includes('name')),
-      center: hdr.findIndex(h=>h==='center')
-    };
-    // Fallback to positional if header detection fails
-    const getCol=(detected,fallback)=>detected>=0?detected:fallback;
-    const rC=getCol(ci.regno,COL.regno);
-    const bC=getCol(ci.batch,COL.batch);
-    const nC=getCol(ci.name,COL.name);
-    const cC=getCol(ci.center,COL.center);
-
-    for(let i=1;i<sl.length;i++){
-      const row=sl[i];
-      const regno=String(row[rC]||'').trim();
-      const batch=String(row[bC]||'').trim();
-      const name=String(row[nC]||'').trim();
-      const center=String(row[cC]||'').trim();
-      if(!regno&&!name&&!batch) continue;
-      studs.push({regno,batch,name,center});
-    }
-  }
-  studentData=studs;
-
-  // Populate filters
+  // Unique centers & batches from student data
+  const sCtrs=[...new Set(raw.map(r=>String(r[SI.center]||'').trim()).filter(Boolean))].sort();
+  const sBatches=[...new Set(raw.map(r=>String(r[SI.batch]||'').trim()).filter(Boolean))].sort();
   const rCtrs=[...new Set(rooms.map(r=>r.center))].sort();
-  const sCtrs=[...new Set(studs.map(s=>s.center).filter(Boolean))].sort();
-  const sBatches=[...new Set(studs.map(s=>s.batch).filter(Boolean))].sort();
+
   pop('r-center',rCtrs,'All Centers');
   pop('s-center',sCtrs,'All Centers');
   pop('s-batch',sBatches,'All Batches');
 
-  // Student summary stats (use batchCount totals as source of truth)
-  const totalStu=Object.values(bc).reduce((s,v)=>s+v,0)||studs.length;
+  // Student stats
+  const totalStu=json.studentCount||raw.length;
   document.getElementById('ss-total').textContent=totalStu.toLocaleString();
-  document.getElementById('ss-centers').textContent=sCtrs.length||new Set(rooms.map(r=>r.center)).size;
-  document.getElementById('ss-batches').textContent=Object.keys(bc).length||sBatches.length;
+  document.getElementById('ss-centers').textContent=sCtrs.length;
+  document.getElementById('ss-batches').textContent=sBatches.length;
 
   renderRooms();
   renderStudents();
@@ -375,11 +345,13 @@ function pop(id,opts,ph){
   if(cur) sel.value=cur;
 }
 
-// ── ROOM RENDER ───────────────────────────────────────
+// ── ROOM FILTER & RENDER ──────────────────────────────
 function setFill(el,val){
   activeFill=val;
   const map={'':'ca','over':'co','high':'ch','med':'cm','low':'cl','empty':'ce'};
-  document.querySelectorAll('.fill-chips .chip').forEach(c=>{c.className='chip'+(c.dataset.f===val?' '+map[val]:'');});
+  document.querySelectorAll('.fill-chips .chip').forEach(c=>{
+    c.className='chip'+(c.dataset.f===val?' '+map[val]:'');
+  });
   renderRooms();
 }
 
@@ -390,11 +362,11 @@ function filterRooms(){
   return roomData.filter(r=>{
     if(center&&r.center!==center) return false;
     if(type&&r.type!==type) return false;
-    if(activeFill==='over'&&r.pct<=1) return false;
-    if(activeFill==='high'&&(r.pct<0.8||r.pct>1)) return false;
-    if(activeFill==='med'&&(r.pct<0.4||r.pct>=0.8)) return false;
-    if(activeFill==='low'&&(r.pct<=0||r.pct>=0.4)) return false;
-    if(activeFill==='empty'&&r.pct!==0) return false;
+    if(activeFill==='over'  && r.pct<=1) return false;
+    if(activeFill==='high'  && (r.pct<0.8||r.pct>1)) return false;
+    if(activeFill==='med'   && (r.pct<0.4||r.pct>=0.8)) return false;
+    if(activeFill==='low'   && (r.pct<=0||r.pct>=0.4)) return false;
+    if(activeFill==='empty' && r.pct!==0) return false;
     if(q&&!`${r.center} ${r.building} ${r.room} ${r.batch} ${r.type} ${r.shift}`.toLowerCase().includes(q)) return false;
     return true;
   });
@@ -414,7 +386,10 @@ function renderRooms(){
   document.getElementById('s-empty').textContent=filtered.filter(r=>r.pct===0).length;
 
   const main=document.getElementById('roomContent');
-  if(!filtered.length){main.innerHTML='<div style="text-align:center;padding:60px;color:var(--text3);">No rooms match filters.</div>';return;}
+  if(!filtered.length){
+    main.innerHTML='<div style="text-align:center;padding:60px;color:var(--text3);">No rooms match your filters.</div>';
+    return;
+  }
 
   const byC=gb(filtered,'center');
   let html='';
@@ -457,15 +432,22 @@ function renderRooms(){
           <div class="bldot" style="background:${bfc.d}"></div>
           <div class="blname">${bld}</div>
           <div class="blmeta">
-            <span>${bR.length} rooms</span><span>${bStu}/${bCap}</span>
+            <span>${bR.length} rooms</span>
+            <span>${bStu} / ${bCap}</span>
             <span style="color:${bfc.t};font-weight:600">${Math.round(bPct*100)}%</span>
           </div>
           <svg class="bchev${bOpen?' open':''}" id="bc_${bId}" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
         </div>
         <div id="bb_${bId}" ${bOpen?'':'class="collapsed"'}>
           <div class="table-wrap"><table>
-            <thead><tr><th style="width:40px">#</th><th>Room</th><th>Batch Code</th><th>Shift</th><th>Type</th><th>Start Date</th><th class="num">Cap.</th><th class="num">Students</th><th style="min-width:155px">Fill Rate</th></tr></thead>
+            <thead><tr>
+              <th style="width:40px">#</th><th>Room</th><th>Batch Code</th>
+              <th>Shift</th><th>Type</th><th>Start Date</th>
+              <th class="num">Cap.</th><th class="num">Students</th>
+              <th style="min-width:155px">Fill Rate</th>
+            </tr></thead>
             <tbody>`;
+
       sorted.forEach((r,i)=>{
         const rfc=fco(r.pct);
         const bw=Math.min(r.pct,1)*100;
@@ -474,11 +456,15 @@ function renderRooms(){
           <td><span class="rank">${i+1}</span></td>
           <td class="mono" style="color:var(--text);font-weight:500">${r.room}</td>
           <td class="mono dim">${r.batch}</td>
-          <td>${shBadge(r.shift)}</td><td>${tyBadge(r.type)}</td>
+          <td>${shBadge(r.shift)}</td>
+          <td>${tyBadge(r.type)}</td>
           <td class="dim">${dt}</td>
           <td class="num dim">${r.capacity}</td>
           <td class="num" style="font-weight:700;color:${rfc.t}">${r.students}${r.pct>1?'<span class="over-tag" style="margin-left:5px">OVER</span>':''}</td>
-          <td><div class="fill-wrap"><div class="bar-bg"><div class="bar-fg ${rfc.b}" style="width:${bw}%"></div></div><span class="fp" style="color:${rfc.t}">${Math.round(r.pct*100)}%</span></div></td>
+          <td><div class="fill-wrap">
+            <div class="bar-bg"><div class="bar-fg ${rfc.b}" style="width:${bw}%"></div></div>
+            <span class="fp" style="color:${rfc.t}">${Math.round(r.pct*100)}%</span>
+          </div></td>
         </tr>`;
       });
       html+=`</tbody></table></div></div></div>`;
@@ -488,10 +474,15 @@ function renderRooms(){
   main.innerHTML=html;
 }
 
-// ── STUDENT RENDER ────────────────────────────────────
+// ── STUDENT FILTER & RENDER ───────────────────────────
 function onSCenterChange(){
   const center=document.getElementById('s-center').value;
-  const batches=[...new Set(studentData.filter(s=>!center||s.center===center).map(s=>s.batch).filter(Boolean))].sort();
+  const batches=[...new Set(
+    studentData
+      .filter(r=>!center||String(r[SI.center]||'').trim()===center)
+      .map(r=>String(r[SI.batch]||'').trim())
+      .filter(Boolean)
+  )].sort();
   pop('s-batch',batches,'All Batches');
   renderStudents();
 }
@@ -500,10 +491,14 @@ function filterStudents(){
   const q=document.getElementById('s-search').value.toLowerCase().trim();
   const center=document.getElementById('s-center').value;
   const batch=document.getElementById('s-batch').value;
-  return studentData.filter(s=>{
-    if(center&&s.center!==center) return false;
-    if(batch&&s.batch!==batch) return false;
-    if(q&&!`${s.regno} ${s.name} ${s.batch} ${s.center}`.toLowerCase().includes(q)) return false;
+  return studentData.filter(r=>{
+    const rc=String(r[SI.center]||'').trim();
+    const rb=String(r[SI.batch]||'').trim();
+    const rn=String(r[SI.name]||'').trim();
+    const rr=String(r[SI.regno]||'').trim();
+    if(center&&rc!==center) return false;
+    if(batch&&rb!==batch) return false;
+    if(q&&!`${rr} ${rn} ${rb} ${rc}`.toLowerCase().includes(q)) return false;
     return true;
   });
 }
@@ -512,6 +507,7 @@ function renderStudents(){
   const filtered=filterStudents();
   document.getElementById('ss-showing').textContent=filtered.length.toLocaleString();
   document.getElementById('ss-count').textContent=filtered.length.toLocaleString();
+
   const parts=[];
   const c=document.getElementById('s-center').value;
   const b=document.getElementById('s-batch').value;
@@ -520,20 +516,34 @@ function renderStudents(){
   if(b) parts.push('Batch: '+b);
   if(q) parts.push('"'+q+'"');
   document.getElementById('ss-info').textContent=parts.length?'· '+parts.join(' · '):'All students';
+
   const tbody=document.getElementById('studentBody');
-  if(!filtered.length){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:60px;color:var(--text3);">No students match your filters.</td></tr>';return;}
+  if(!filtered.length){
+    tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:60px;color:var(--text3);">No students match your filters.</td></tr>';
+    return;
+  }
+
+  // Render up to 2000 rows for performance
   const show=filtered.slice(0,2000);
   let html='';
-  show.forEach((s,i)=>{
+  show.forEach((r,i)=>{
+    const regno=String(r[SI.regno]||'').trim();
+    const name =String(r[SI.name]||'').trim();
+    const batch=String(r[SI.batch]||'').trim();
+    const ctr  =String(r[SI.center]||'').trim();
     html+=`<tr>
       <td class="dim">${i+1}</td>
-      <td class="mono" style="color:var(--accent2);font-weight:500">${s.regno||'—'}</td>
-      <td style="font-weight:500">${s.name||'—'}</td>
-      <td><span class="badge bo" style="font-family:var(--mono);font-size:10px">${s.batch||'—'}</span></td>
-      <td class="dim">${s.center||'—'}</td>
+      <td class="mono" style="color:var(--accent2);font-weight:500">${regno||'—'}</td>
+      <td style="font-weight:500">${name||'—'}</td>
+      <td><span class="badge bo" style="font-family:var(--mono);font-size:10px">${batch||'—'}</span></td>
+      <td class="dim">${ctr||'—'}</td>
     </tr>`;
   });
-  if(filtered.length>2000) html+=`<tr><td colspan="5" style="text-align:center;padding:14px;color:var(--text3);font-size:12px;">Showing first 2,000 of ${filtered.length.toLocaleString()} — use filters or download CSV for full list.</td></tr>`;
+  if(filtered.length>2000){
+    html+=`<tr><td colspan="5" style="text-align:center;padding:14px;color:var(--text3);font-size:12px;">
+      Showing first 2,000 of ${filtered.length.toLocaleString()} — use filters or download CSV for the full list.
+    </td></tr>`;
+  }
   tbody.innerHTML=html;
 }
 
@@ -542,8 +552,16 @@ function downloadCSV(){
   const filtered=filterStudents();
   if(!filtered.length){alert('No data to download.');return;}
   const rows=[['#','Regno','Student Name','Batch','Center']];
-  filtered.forEach((s,i)=>rows.push([i+1,s.regno,s.name,s.batch,s.center]));
-  const csv=rows.map(r=>r.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\r\n');
+  filtered.forEach((r,i)=>{
+    rows.push([
+      i+1,
+      String(r[SI.regno]||''),
+      String(r[SI.name]||''),
+      String(r[SI.batch]||''),
+      String(r[SI.center]||'')
+    ]);
+  });
+  const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\r\n');
   const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8;'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
@@ -583,15 +601,16 @@ function sn(s){return String(s).replace(/[^a-z0-9]/gi,'_');}
 function xe(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;');}
 function xe2(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
 function fco(p){
-  if(p>1)   return{b:'br2',t:'var(--red)',  d:'var(--red)'};
-  if(p>=0.8)return{b:'bg2',t:'var(--green)',d:'var(--green)'};
-  if(p>=0.4)return{b:'ba2',t:'var(--amber)',d:'var(--amber)'};
-  if(p>0)   return{b:'bb2',t:'var(--blue)', d:'var(--blue)'};
-  return         {b:'bgr',t:'var(--text3)',d:'var(--text3)'};
+  if(p>1)    return{b:'br2',t:'var(--red)',  d:'var(--red)'};
+  if(p>=0.8) return{b:'bg2',t:'var(--green)',d:'var(--green)'};
+  if(p>=0.4) return{b:'ba2',t:'var(--amber)',d:'var(--amber)'};
+  if(p>0)    return{b:'bb2',t:'var(--blue)', d:'var(--blue)'};
+  return          {b:'bgr',t:'var(--text3)',d:'var(--text3)'};
 }
 function shBadge(s){const m={Morning:'bm',Evening:'be',Afternoon:'bn',Any:'ba'};return`<span class="badge ${m[s]||'ba'}">${s}</span>`;}
 function tyBadge(t){const m={Weekday:'bwd',Weekend:'bwe',ICSE:'bi',Rankers:'br',TTS:'bt'};return`<span class="badge ${m[t]||'bo'}">${t}</span>`;}
 
+// ── BOOT ──────────────────────────────────────────────
 loadData();
 </script>
 </body>
